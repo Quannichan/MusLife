@@ -11,7 +11,9 @@
   + HTML5/CSS3.
   + Javascript.
   + Jquery.
+  + Jsp(java server page).
 - Server:
+  + Servlet.
   + Java.
   + Apache Tomcat.
 - Database:
