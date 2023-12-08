@@ -21,7 +21,7 @@
 - Web design IDE:
   + Visual Studio Code.
 
-# SOUREC CODE
+# SOURCE CODE
 - git clone https://github.com/Quannichan/MusLife.git
 
 # HOW TO RUN
