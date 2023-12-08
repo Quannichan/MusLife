@@ -274,6 +274,32 @@ public class Admin extends HttpServlet {
 								
 								break;
 								
+							case "new_pll":
+								String data11 = "";
+								try {
+									String name = request.getParameter("name");
+									String type = request.getParameter("type");
+									if(name.equals("") && name.length() < 1){
+										data11 = "{\"error\":\"nullname\"}";
+										response.setContentType("application/json");
+							            response.setCharacterEncoding("UTF-8");
+										response.getWriter().write(data11);
+									}else {
+										data11 = "{\"error\":\"false\",";
+										stmt.execute("INSERT INTO playlist (playlist_img_path, playlist_name, playlist_script, playlist_type )VALUE ('images/music.png', '"+name+"', 'new playlist', '"+type+"')");
+										response.setContentType("application/json");
+							            response.setCharacterEncoding("UTF-8");
+										response.getWriter().write(data11);
+									}
+								}catch(Exception e) {
+									e.printStackTrace();
+									data11 = "{\"error\":\"true\"}";
+									response.setContentType("application/json");
+						            response.setCharacterEncoding("UTF-8");
+									response.getWriter().write(data11);
+								}
+								break;
+								
 							default:
 								response.setContentType("application/json");
 					            response.setCharacterEncoding("UTF-8");

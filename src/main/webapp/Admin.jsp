@@ -26,6 +26,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="images/icon.png">
     <link rel="stylesheet" href="CSS/admin.css">
+    <link rel="stylesheet" href="CSS/index.css">
     <title>MusLife | Admin</title>
 </head>
 <body>
@@ -151,7 +152,43 @@
                 </div>
             </div>
         </div>
-
+		<div id="wrap_out_cre_pll" class="wrap_out_nof" >
+			<div class="cre_pll">
+			    <div class="create">
+	                <div class="wrap_cre_head">
+	                    <p class="head_cre">create your playlist</p>
+	                </div>
+	                
+	                <div class="wrap_cre_inp">
+	                    <input type="text" id="cre_pll_name" class="pll_cre_name" placeholder="write your playlist name" name="pll_name_cre">
+	                    <div class="wrap_type_med">
+	                        <div class="type_med_ct_wrap">
+	                            <div class="wrap_check_type">
+	                                <input type="radio" name="type_new_playlist" id="type_new_playlist" value="song">
+	                                <p class="name_check_type">Song</p>
+	                            </div>
+	                            <div class="wrap_check_type">
+	                                <input type="radio" name="type_new_playlist" id="type_new_playlist" value="podcast">
+	                                <p class="name_check_type">Podcast</p>
+	                            </div>
+	                        </div>
+                    	</div>
+	                    <input onclick="Add_new('playlist')" disabled id="acp_cre_btn" class="acp_cre" value="create">
+	                    <button onclick="turn_off_create_playlist()" id="unacp_cre_btn" class="unacp_cre">cancle</button>
+	                </div>
+	            </div>
+            </div>
+		</div>
+		
+		<style>
+			.acp_cre:disabled{
+				background-color:gray;
+			}
+			.acp_cre{
+				display: flex;
+				text-align:center;
+			}
+		</style>
 
         <!-- content playlist -->
         <div class="wrap_playlist_behave" id="PLL" style="display: none;">
@@ -327,7 +364,7 @@
 
             <div class="wrap_pll_display" >
                 <div class="wrap_btn_behave_pll">
-                    <button class="new_pll_btn">New</button>
+                    <button class="new_pll_btn" onclick="create_playlist()">New</button>
                 </div>
                 <div class="pll_display" id="pll_display">
 
@@ -453,12 +490,12 @@
 
     <script>
     	var interval = setInterval(()=>{},5000);
-        var monthInput = document.getElementById("year_song");
-        monthInput.addEventListener("change", function() {
-            var selectedMonth = monthInput.value;
-            var selectedYear = selectedMonth.split('-')[0];
-            console.log("Selected Year:", selectedYear);
-        });
+    	function create_playlist(){
+        	document.getElementById("wrap_out_cre_pll").style.display="flex";
+        }
+    	function turn_off_create_playlist(){
+        	document.getElementById("wrap_out_cre_pll").style.display="none";
+        }
         function logout(){ 
         	document.getElementById("loo").submit();
         }
@@ -555,6 +592,8 @@
                     ART.style.display = "none";
                     USER.style.display = "none";
                     CATE.style.display = "none";
+                    clearInterval(interval);
+                    interval = setInterval(check_new_playlist, 500);
 					$.ajax({
 						url : "Admin",
 						type : "POST",
@@ -569,7 +608,7 @@
                 			if(response.error === "false"){
                 				if(response.playlist.length > 0){
                 					for(var i = 0; i < response.playlist.length; i++){
-                						wrap_pll.innerHTML = wrap_pll.innerHTML + "<div class='pll' id='"+response.playlist[i].id+"'><img class='img_pll' id = 'idPll_img_"+response.playlist[i].id+"' src='"+response.playlist[i].img+"' alt=''><input type='text' class='name_pll' id='idPll_name_"+response.playlist[i].id+"' value='"+response.playlist[i].name+"'><input type='text' class='script_pll' id='idPll_scr_"+response.playlist[i].id+"' value='"+response.playlist[i].script+"'><div class='wrap_DEL_RE_UP'><button class='btn_beahave_song' onclick='deletePlaylist(\""+response.playlist[i].id+"\")'><img class='img_beahave_song' src='images/delete.png' alt=''></button><input type='file' class='ipn_file' style='display:none;' id='inp_img_pll_"+response.playlist[i].id+"' onchange=\"showPreview(this.id,'idPll_img_"+response.playlist[i].id+"', '"+response.playlist[i].img+"')\"><label class='btn_beahave_song' for='inp_img_pll_"+response.playlist[i].id+"'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \" Save( '"+response.playlist[i].id+"', 'inp_img_pll_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', 'idPll_img_"+response.playlist[i].id+"', 'playlist', '', '')\" ><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \" reloadInfo('playlist', 'idPll_img_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', '"+response.playlist[i].img+"', '"+response.playlist[i].name+"', '"+response.playlist[i].script+"', 'inp_img_pll_"+response.playlist[i].id+"')\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
+                						wrap_pll.innerHTML = wrap_pll.innerHTML + "<div class='pll' id='"+response.playlist[i].id+"'><img class='img_pll' id = 'idPll_img_"+response.playlist[i].id+"' src='"+response.playlist[i].img+"' alt=''><input type='text' class='name_pll' id='idPll_name_"+response.playlist[i].id+"' value='"+response.playlist[i].name+"'><input type='text' class='script_pll' id='idPll_scr_"+response.playlist[i].id+"' value='"+response.playlist[i].script+"'><div class='wrap_DEL_RE_UP'><button class='btn_beahave_song' onclick=''><img class='img_beahave_song' src='images/edit_pll.png' alt=''></button><button class='btn_beahave_song' onclick='deletePlaylist(\""+response.playlist[i].id+"\")'><img class='img_beahave_song' src='images/delete.png' alt=''></button><input type='file' class='ipn_file' style='display:none;' id='inp_img_pll_"+response.playlist[i].id+"' onchange=\"showPreview(this.id,'idPll_img_"+response.playlist[i].id+"', '"+response.playlist[i].img+"')\"><label class='btn_beahave_song' for='inp_img_pll_"+response.playlist[i].id+"'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \" Save( '"+response.playlist[i].id+"', 'inp_img_pll_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', 'idPll_img_"+response.playlist[i].id+"', 'playlist', '', '')\" ><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \" reloadInfo('playlist', 'idPll_img_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', '"+response.playlist[i].img+"', '"+response.playlist[i].name+"', '"+response.playlist[i].script+"', 'inp_img_pll_"+response.playlist[i].id+"')\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
                 					}
                 				}else{
                 					
@@ -936,42 +975,7 @@
         	}
         }
         
-        function showPreview(inp_id, id_img, img_old_data){
-            if(event.target.files.length > 0){
-                const inp = document.getElementById(inp_id);
-  	  		      if (validFileType(inp.files[0])) {
-  	  		    	var src = URL.createObjectURL(inp.files[0]);
-  	                var preview = document.getElementById(id_img);
-  	                preview.src = src;
-  	                console.log(inp.files[0]);
-  	  		      } else {
-  	  		    	document.getElementById(inp_id).value = null;
-  	                console.log(inp.files[0]);
-  	                document.getElementById(id_img).src = img_old_data;
-  	  		      }
-               
-            }else{
-                var inp = document.getElementById(inp_id);
-                console.log(inp.files[0]);
-                document.getElementById(id_img).src = img_old_data;
-            }
-          }
         
-        function validate(inp_id){
-        	if(event.target.files.length > 0){
-                const inp = document.getElementById(inp_id);
-  	  		      if (validFileType(inp.files[0])) {
-  	                console.log(inp.files[0]);
-  	  		      } else {
-  	  		    	document.getElementById(inp_id).value = null;
-  	                console.log(inp.files[0]);
-  	  		      }
-               
-            }else{
-                var inp = document.getElementById(inp_id);
-                console.log(inp.files[0]);
-            }
-        }
         
         function Add_new(type){
         	switch (type){
@@ -1014,7 +1018,32 @@
         			break;
         			
 				case "playlist":
-        			
+					var name = document.getElementById("cre_pll_name");
+					var type;
+					var radio_type = document.getElementsByName("type_new_playlist");
+		        	var count = 0;
+		             while(count < radio_type.length){
+		             	if(radio_type[count].checked){
+		                 	type = radio_type[count].value;
+		                 }
+		                 count++;
+		             }
+        			$.ajax({
+        				url: "Admin",
+        				type: "POST",
+        				data: {
+        					Admin_Behave : "AdAction",
+							Admin_request: "new_pll",
+							name: name.value,
+							type: type
+        				},
+        				success: function (response){
+        					Apprear("PLL");
+        				},
+        				error: function (response){
+        					
+        				} 
+        			});
         			
         			break;
         			
@@ -1083,21 +1112,6 @@
         			
         	};
         }
-        
-        function validFileType(file) {
-	  		  return fileTypes.includes(file.type);
-	  		}
-	  	  
-	  	  const fileTypes = [
-	  		  "image/apng",
-	  		  "image/jpeg",
-	  		  "image/pjpeg",
-	  		  "image/png",
-	  		  "image/jpg",
-	  		  "image/png"
-	  		];
-        
-        
         
         function display_art(){
         	var preview_art = document.getElementById('text_art_pre');
@@ -1206,6 +1220,78 @@
 	          	   	document.getElementById("new_cate_btn").disabled = false;
 			   }
         }
+        
+        function check_new_playlist(){
+        	var name = document.getElementById("cre_pll_name");
+        	var radio_type = document.getElementsByName("type_new_playlist");
+        	 var count = 0;
+             var check = false;
+             while(count < radio_type.length){
+             	if(radio_type[count].checked){
+                 	check = true;
+                 }
+                 count++;
+             }
+             if(check){
+            	 if(name.value === "" && name.value.length < 1){
+            		 document.getElementById("acp_cre_btn").disabled = true;
+            	 }else{
+            		 document.getElementById("acp_cre_btn").disabled = false;
+            	 }
+             }else{
+        		 document.getElementById("acp_cre_btn").disabled = true;
+             }
+        }
+        
+        function showPreview(inp_id, id_img, img_old_data){
+            if(event.target.files.length > 0){
+                const inp = document.getElementById(inp_id);
+  	  		      if (validFileType(inp.files[0])) {
+  	  		    	var src = URL.createObjectURL(inp.files[0]);
+  	                var preview = document.getElementById(id_img);
+  	                preview.src = src;
+  	                console.log(inp.files[0]);
+  	  		      } else {
+  	  		    	document.getElementById(inp_id).value = null;
+  	                console.log(inp.files[0]);
+  	                document.getElementById(id_img).src = img_old_data;
+  	  		      }
+               
+            }else{
+                var inp = document.getElementById(inp_id);
+                console.log(inp.files[0]);
+                document.getElementById(id_img).src = img_old_data;
+            }
+          }
+        
+        function validate(inp_id){
+        	if(event.target.files.length > 0){
+                const inp = document.getElementById(inp_id);
+  	  		      if (validFileType(inp.files[0])) {
+  	                console.log(inp.files[0]);
+  	  		      } else {
+  	  		    	document.getElementById(inp_id).value = null;
+  	                console.log(inp.files[0]);
+  	  		      }
+               
+            }else{
+                var inp = document.getElementById(inp_id);
+                console.log(inp.files[0]);
+            }
+        }
+        
+        function validFileType(file) {
+	  		  return fileTypes.includes(file.type);
+	  		}
+	  	  
+	  	  const fileTypes = [
+	  		  "image/apng",
+	  		  "image/jpeg",
+	  		  "image/pjpeg",
+	  		  "image/png",
+	  		  "image/jpg",
+	  		  "image/png"
+	  		];
         
     </script>
 </body>

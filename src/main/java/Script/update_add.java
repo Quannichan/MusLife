@@ -191,9 +191,7 @@ public class update_add extends HttpServlet {
 									
 									break;
 									
-								case "new_pll":
-									
-									break;
+								
 							}
 						}else {
 							response.setContentType("application/json");
