@@ -1,0 +1,42 @@
+@charset "UTF-8";
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family:monospace;
+     background: url(404notfound.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.wrap{
+    display: flex;
+    padding: 5%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.wrap_404{
+	color: White;
+    display: block;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+.text_404{
+    font-size: 70px;
+    align-items: center;
+    padding: 2%;
+    color: white;
+}
+.text{
+	color: White;
+    font-size: 14px;
+    align-items: center;
+    padding: 2%;
+    color: white;
+}

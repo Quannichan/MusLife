@@ -1,0 +1,131 @@
+@charset "UTF-8";
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Ubuntu', sans-serif;
+}
+.wrap{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 5%;
+}
+.border{
+    background-color: white;
+    border-radius: 10px;
+    padding: 5%;
+    border-style: solid;
+    display: flex;
+    justify-content: center;
+    box-shadow: 10px 10px 10px black;
+}
+.wrap_form{
+    display: block;
+}
+.wrap_head_change_inp{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.wrap_inp_pass{
+    display: block;
+    margin-bottom: 32px;
+}
+.inp_pass{
+    outline: 0;
+    border-style: none none solid none;
+    border-width: 2px;
+    width: 230px;
+    transition: 0.25s;
+    font-size: 16px;
+}
+.la_pass{
+    position: absolute;
+    transform: translateX(-230px);
+    transition: 0.25s;
+    font-weight: bold;
+}
+.inp_pass:focus{
+    transform: translateY(10px);
+}
+.inp_pass:focus~.la_pass{
+    transform: translateX(-230px) translateY(-10px);
+}
+.show_wrap{
+    margin-bottom: 5px;
+    justify-content: left;
+    align-items: center;
+    display: flex;
+}
+.show_pass{
+    font-size: 14px;
+    margin-right: 3px;
+}
+.wrap_forpass{
+    margin-bottom: 30px;
+}
+.forpass{
+	background-color: transparent;
+	border-style: none none none none;	
+    color:black;
+    font-size: 12px;
+    font-weight: bold;
+}
+.forpass:hover{
+    border-style: none none solid none;
+    border-width: 2px;
+    cursor: pointer;
+}
+.wrap_foot{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.wrap_logo_img{
+    background-color: black;
+    display: flex;
+    align-items: center;
+    padding: 2%;
+    border-radius: 5px;
+    transition: 0.25s;
+}
+.wrap_logo_img:hover{
+    box-shadow: 5px 5px 5px black;
+}
+.sub_btn{
+    background-color: black;
+    width: 80px;
+    height: 25px;
+    color:white;
+    font-size: 16px;
+    border-radius: 5px;
+    border-style: none;
+    transition: 0.25s;
+}
+.sub_btn:disabled{
+    background-color: rgb(187, 187, 187);
+    color:rgb(255, 255, 255);
+}
+.sub_btn:hover{
+    background-color: rgb(255, 255, 255);
+    color:black;
+    box-shadow: 0px 0px 10px black;
+}
+.custom-loader {
+  width:25px;
+  height:25px;
+  --c:radial-gradient(farthest-side,#000000 92%,#0000);
+  background: 
+    var(--c) 50% 0,
+    var(--c) 50% 100%,
+    var(--c) 100% 50%,
+    var(--c) 0    50%;
+  background-size:6px 6px;
+  background-repeat:no-repeat;
+  animation:s7 0.5s infinite;
+}
+@keyframes s7 {to{transform: rotate(.5turn)}}
