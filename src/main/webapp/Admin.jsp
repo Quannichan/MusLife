@@ -108,7 +108,7 @@
                             </div>
                             <div class="wrap_file_inp">
                                 <p class="head_file">Path</p>
-                                <input type="file" class="file_path_song"  id="new_file_path_song" >
+                                <input type="file" class="file_path_song"  id="new_file_path_song" onchange="validateMedia('new_file_path_song')" >
                             </div>
 
                             <div class="wrap_file_inp">
@@ -143,7 +143,7 @@
                             </div>
 
                             <div class="wrap_addsong_btn">
-                                <input disabled type="button" id="new_med_btn" class="addsong_btn" value="Add">
+                                <input disabled type="button" onclick="Add_new('media')" id="new_med_btn" class="addsong_btn" value="Add">
                             </div>
                             <br><br><br>
                         </div>
@@ -173,7 +173,7 @@
 	                            </div>
 	                        </div>
                     	</div>
-	                    <input onclick="Add_new('playlist')" disabled id="acp_cre_btn" class="acp_cre" value="create">
+	                    <input type ="button" onclick="Add_new('playlist')" disabled id="acp_cre_btn" class="acp_cre" value="create">
 	                    <button onclick="turn_off_create_playlist()" id="unacp_cre_btn" class="unacp_cre">cancle</button>
 	                </div>
 	            </div>
@@ -185,7 +185,6 @@
 				background-color:gray;
 			}
 			.acp_cre{
-				display: flex;
 				text-align:center;
 			}
 		</style>
@@ -981,22 +980,50 @@
         	switch (type){
         		case "media":
         			var behave = "AdAction";
-					var request = "new_art";
-					var radio = document.getElementsByName("check_artist_type");
+					var request = "new_med";
+					var radio_art = document.getElementsByName("Name_artist_med");
+		        	var radio_cate = document.getElementsByName("cate_new_med");
+		        	var radio_type = document.getElementsByName("type_new_med");
+		        	var year = document.getElementById("new_year_med");
+		        	var file_img = document.getElementById("new_file_img_song");
+		        	var file_path = document.getElementById("new_file_path_song")
 		            var count = 0;
-		            var type;
-		            while(count < radio.length){
-		            	if(radio[count].checked){
-		            		type = radio[count].value;
+		        	var id_art;
+		            var type_value;
+		            var art_value ;
+		            var cate_value;
+		            while(count < radio_art.length){
+		            	if(radio_art[count].checked){
+		            		art_value = radio_art[count].value;
+		            		id_art= radio_art[count].id;
+		                }
+		                count++;
+		            }
+		            count = 0;
+		            while(count < radio_cate.length){
+		            	if(radio_cate[count].checked){
+		            		cate_value = radio_cate[count].value;
+		                }
+		                count++;
+		            }
+		            count = 0;
+		            while(count < radio_type.length){
+		            	if(radio_type[count].checked){
+		            		type_value = radio_type[count].value;
 		                }
 		                count++;
 		            }
 					var formData = new FormData();
-					var name = document.getElementById("new_name_artist");
+					var name = document.getElementById("new_name_med");
 					var file = document.getElementById("inp_artist_new");
 	    	  	  	formData.append("name",name.value);
-	    	  	  	formData.append("type",type);
-	    	  	  	formData.append("file", file.files[0]);
+	    	  	  	formData.append("type",type_value);
+	    	  	  	formData.append("cate",cate_value);
+	    	  	  	formData.append("year",year.value);
+	    	  	  	formData.append("per",art_value);
+	    	  	  	formData.append("id_per",id_art);
+	    	  	  	formData.append("file", file_img.files[0]);
+	    	  	  	formData.append("file_path", file_path.files[0]);
 	    	  	  	formData.append("Admin_Behave",behave);
 	    	  	  	formData.append("Admin_request",request);
 
@@ -1006,7 +1033,7 @@
 	    	  	        if (xhr.readyState === 4 && xhr.status === 200) {
 	    	  	        	var response = JSON.parse(xhr.responseText);
 	    	  	        	if(response.error === "false"){
-	    	  	        		Apprear("ART");
+	    	  	        		Apprear("MEDIA");
 	    	  	        	}else{
 	    	  	        		
 	    	  	        	}
@@ -1038,7 +1065,15 @@
 							type: type
         				},
         				success: function (response){
-        					Apprear("PLL");
+        					if(response.error === "false"){
+        						Apprear("PLL");
+        						turn_off_create_playlist();
+        					}else if(respnse.error === "true"){
+        						turn_off_create_playlist();
+        					}else if(respnse.error === "nullname"){
+        						turn_off_create_playlist();
+        					}
+        					
         				},
         				error: function (response){
         					
@@ -1113,19 +1148,6 @@
         	};
         }
         
-        function display_art(){
-        	var preview_art = document.getElementById('text_art_pre');
-            var checkboxes = document.getElementsByName('Name_artist_med');
-            var arr = [];
-            var arr_id = [];
-            for (var i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
-                    arr.push(checkboxes[i].value);
-                    arr_id.push(checkboxes[i].id);
-                }
-            }
-             preview_art.innerText = arr.join(", ");
-        }
         
         function check_new_artist(){
         	var radio = document.getElementsByName("check_artist_type");
@@ -1154,7 +1176,6 @@
         }
         
         function check_new_media(){
-        	display_art();
         	var radio_art = document.getElementsByName("Name_artist_med");
         	var radio_cate = document.getElementsByName("cate_new_med");
         	var radio_type = document.getElementsByName("type_new_med");
@@ -1241,6 +1262,22 @@
              }else{
         		 document.getElementById("acp_cre_btn").disabled = true;
              }
+        }
+        
+        function validateMedia(inp_id){
+        	if(event.target.files.length > 0){
+                const inp = document.getElementById(inp_id);
+  	  		      if (inp.files[0].type === "audio/mpeg") {
+  	                console.log(inp.files[0]);
+  	  		      } else {
+  	  		    	document.getElementById(inp_id).value = null;
+  	                console.log(inp.files[0]);
+  	  		      }
+               
+            }else{
+                var inp = document.getElementById(inp_id);
+                console.log(inp.files[0]);
+            }
         }
         
         function showPreview(inp_id, id_img, img_old_data){

@@ -57,7 +57,8 @@ public class update_add extends HttpServlet {
 							String img_pathPod = request.getServletContext().getRealPath("images/podcast");
 							String img_pathArtist = request.getServletContext().getRealPath("images/performers");
 							String img_pathPlaylist = request.getServletContext().getRealPath("images/playlist");
-							
+							String song_path = request.getServletContext().getRealPath("song");
+							String podcast_path = request.getServletContext().getRealPath("podcast");
 							String name = request.getParameter("name");
 							switch(req) {
 								case"up_med":
@@ -164,7 +165,74 @@ public class update_add extends HttpServlet {
 									break;
 																		
 								case "new_med":
-									
+									try {
+										String Name_med = name;
+										String per = request.getParameter("per");
+										String cate = request.getParameter("cate");
+										String year = request.getParameter("year");
+										Part filePath = request.getPart("file");
+										Part filePath_med = request.getPart("file_path");
+										String type = request.getParameter("type");
+										if(type.equals("song")) {
+											String filename = Path.of(filePath.getSubmittedFileName()).getFileName().toString();
+											String med_path = Path.of(filePath_med.getSubmittedFileName()).getFileName().toString();
+											System.out.println(img_pathSong+"/"+filename);
+											if(!Files.exists(Path.of(img_pathSong))) {
+												Files.createDirectory(Path.of(img_pathSong));
+												if(!Files.exists(Path.of(song_path))) {
+													Files.createDirectory(Path.of(song_path));
+													filePath.write(img_pathSong+"/"+filename);
+													filePath_med.write(song_path+"/"+med_path);
+												} else {
+													filePath.write(img_pathSong+"/"+filename);
+													filePath_med.write(song_path+"/"+med_path);
+												}
+											}else {
+												if(!Files.exists(Path.of(song_path))) {
+													filePath.write(img_pathSong+"/"+filename);
+													filePath_med.write(song_path+"/"+med_path);
+												} else {
+													filePath.write(img_pathSong+"/"+filename);
+													filePath_med.write(song_path+"/"+med_path);
+												}
+												
+											}
+											stmt.execute("INSERT INTO media (img_path, media_name, performer, file_path, media_song_categories, year, types) VALUES('images/song/"+filename+"', '"+Name_med+"', '"+per+"', 'song/"+med_path+"', '"+cate+"', '"+year+"', '"+type+"')");
+										}else if(type.equals("podcast")) {
+											String filename = Path.of(filePath.getSubmittedFileName()).getFileName().toString();
+											String pod_path = Path.of(filePath_med.getSubmittedFileName()).getFileName().toString();
+											System.out.println(img_pathPod+"/"+filename);
+											if(!Files.exists(Path.of(img_pathPod))) {
+												Files.createDirectory(Path.of(img_pathPod));
+												if(!Files.exists(Path.of(podcast_path))) {
+													Files.createDirectory(Path.of(podcast_path));
+													filePath.write(img_pathPod+"/"+filename);
+													filePath_med.write(podcast_path+"/"+pod_path);
+												} else {
+													filePath.write(img_pathSong+"/"+filename);
+													filePath_med.write(podcast_path+"/"+pod_path);
+												}
+											}else {
+												if(!Files.exists(Path.of(podcast_path))) {
+													filePath.write(img_pathPod+"/"+filename);
+													filePath_med.write(podcast_path+"/"+pod_path);
+												} else {
+													filePath.write(img_pathPod+"/"+filename);
+													filePath_med.write(podcast_path+"/"+pod_path);
+												}
+												
+											}
+											stmt.execute("INSERT INTO media (img_path, media_name, performer, file_path, media_song_categories, year, types) VALUES('images/song/"+filename+"', '"+Name_med+"', '"+per+"', 'podcast/"+pod_path+"', '"+cate+"', '"+year+"', '"+type+"')");
+										}
+										response.setContentType("application/json");
+								        response.setCharacterEncoding("UTF-8");
+								        response.getWriter().write("{\"error\":\"false\"}");
+									}catch(Exception e) {
+										e.printStackTrace();
+										response.setContentType("application/json");
+								        response.setCharacterEncoding("UTF-8");
+								        response.getWriter().write("{\"error\":\"true\"}");
+									}
 									
 									break;
 									

@@ -285,7 +285,7 @@ public class Admin extends HttpServlet {
 							            response.setCharacterEncoding("UTF-8");
 										response.getWriter().write(data11);
 									}else {
-										data11 = "{\"error\":\"false\",";
+										data11 = "{\"error\":\"false\"}";
 										stmt.execute("INSERT INTO playlist (playlist_img_path, playlist_name, playlist_script, playlist_type )VALUE ('images/music.png', '"+name+"', 'new playlist', '"+type+"')");
 										response.setContentType("application/json");
 							            response.setCharacterEncoding("UTF-8");
