@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
@@ -173,6 +174,7 @@ public class update_add extends HttpServlet {
 										Part filePath = request.getPart("file");
 										Part filePath_med = request.getPart("file_path");
 										String type = request.getParameter("type");
+										String id_per = request.getParameter("id_per");
 										if(type.equals("song")) {
 											String filename = Path.of(filePath.getSubmittedFileName()).getFileName().toString();
 											String med_path = Path.of(filePath_med.getSubmittedFileName()).getFileName().toString();
@@ -198,6 +200,13 @@ public class update_add extends HttpServlet {
 												
 											}
 											stmt.execute("INSERT INTO media (img_path, media_name, performer, file_path, media_song_categories, year, types) VALUES('images/song/"+filename+"', '"+Name_med+"', '"+per+"', 'song/"+med_path+"', '"+cate+"', '"+year+"', '"+type+"')");
+											ResultSet rs = stmt.executeQuery("select id from media order by id DESC limit 1 ;");
+											int id_med = 0;
+											while(rs.next()) {
+												id_med = rs.getInt(1);
+											}
+											stmt.execute("INSERT INTO per_med VALUES('"+id_med+"','"+id_per+"')");
+
 										}else if(type.equals("podcast")) {
 											String filename = Path.of(filePath.getSubmittedFileName()).getFileName().toString();
 											String pod_path = Path.of(filePath_med.getSubmittedFileName()).getFileName().toString();
@@ -223,6 +232,13 @@ public class update_add extends HttpServlet {
 												
 											}
 											stmt.execute("INSERT INTO media (img_path, media_name, performer, file_path, media_song_categories, year, types) VALUES('images/song/"+filename+"', '"+Name_med+"', '"+per+"', 'podcast/"+pod_path+"', '"+cate+"', '"+year+"', '"+type+"')");
+											ResultSet rs = stmt.executeQuery("select id from media order by id DESC limit 1 ;");
+											int id_med = 0;
+											while(rs.next()) {
+												id_med = rs.getInt(1);
+											}
+											stmt.execute("INSERT INTO per_med VALUES('"+id_med+"','"+id_per+"')");
+
 										}
 										response.setContentType("application/json");
 								        response.setCharacterEncoding("UTF-8");

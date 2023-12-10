@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -298,6 +299,32 @@ public class Admin extends HttpServlet {
 						            response.setCharacterEncoding("UTF-8");
 									response.getWriter().write(data11);
 								}
+								break;
+								
+							case "up_pll":
+								String data12 = "";
+								try {
+									String id_pll = request.getParameter("id");
+									data12 = "{\"error\":\"false\",\"song\":[";
+									rs = stmt.executeQuery("SELECT media.id, media.media_name, media.img_path, media.performer, media.media_song_categories, media.types from media_in_playlist right join media on media_in_playlist.media_id = media.id where media_in_playlist.playlist_id = '"+id_pll+"'");
+									while(rs.next()) {
+										data12 = data12 + "{\"id\":\""+rs.getInt(1)+"\", \"name\":\""+rs.getString(2)+"\", \"img\":\""+rs.getString(3)+"\", \"per\":\""+rs.getString(4)+"\", \"cate\":\""+rs.getString(5)+"\", \"type\":\""+rs.getString(6)+"\"}";
+										if(!rs.isLast()) {
+											data12 = data12 + ", ";
+										}
+									}
+									data12 = data12 + "]}";
+									response.setContentType("application/json");
+						            response.setCharacterEncoding("UTF-8");
+									response.getWriter().write(data12);
+								}catch(Exception e){
+									data12 = data12 + "{\"error\":\"true\"}";
+									response.setContentType("application/json");
+						            response.setCharacterEncoding("UTF-8");
+									response.getWriter().write(data12);
+								}
+								
+								
 								break;
 								
 							default:

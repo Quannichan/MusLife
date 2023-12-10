@@ -191,7 +191,7 @@
 
         <!-- content playlist -->
         <div class="wrap_playlist_behave" id="PLL" style="display: none;">
-            <div class="playlist_behave" style="display: none;">
+            <div class="playlist_behave" id="pll_edit" style="display: none;">
                 <div class="wrap_song_list_left">
 
                     <div class="song_list_left_head">
@@ -227,29 +227,15 @@
 
                 <div class="wrap_pll_right" >
                     <div class="wrap_pll_info">
-                        <img class="img_pll_add" src="/images/Loi-bai-hat-Co-Em-–-Madihu-x-Low-G-780x470.jpg" alt="">
+                        <img class="img_pll_add" id="pll_img_edit" src="/images/Loi-bai-hat-Co-Em-–-Madihu-x-Low-G-780x470.jpg" alt="">
                         <div class="pll_info">
-                            <p class="info_name_pll">playlist name</p>
-                            <p class="info_sript_pll">script playlist</p>
-                            <p class="type_pll">Type: song</p>
+                            <p class="info_name_pll" id="pll_name_edit">playlist name</p>
+                            <p class="info_sript_pll" id="pll_script_edit">script playlist</p>
+                            <p class="type_pll" id="pll_type_edit">Type: song</p>
                         </div>
                     </div>
-                    <div class="wrap_all_med_pll">
+                    <div class="wrap_all_med_pll" id="wrap_pll_med_edit">
 
-                        <div class="song" id="song">
-                            <div class="song_info">
-                                <div class="wrap_song_img">
-                                    <img class="song_img" src="/images/golden_hour.jpg" alt="">
-                                </div>
-                                <div class="wrap_song_info" >
-                                    <p type="text" class="song_name" id="NAME_id_song">Name song</p>
-                                    <p class="song_per" id="ART_id_song">Artist name</p>
-                                </div>
-                            </div>
-                            <div class="wrap_beahave">
-                                <button class="btn_beahave_song"><img class="img_beahave_song" src="/images/remove.png" alt=""></button>
-                            </div>
-                        </div>
 
                         <div class="song" id="song">
                             <div class="song_info">
@@ -361,7 +347,7 @@
 
             </div>
 
-            <div class="wrap_pll_display" >
+            <div class="wrap_pll_display" id="wrap_pll_display">
                 <div class="wrap_btn_behave_pll">
                     <button class="new_pll_btn" onclick="create_playlist()">New</button>
                 </div>
@@ -593,6 +579,8 @@
                     CATE.style.display = "none";
                     clearInterval(interval);
                     interval = setInterval(check_new_playlist, 500);
+                    document.getElementById("wrap_pll_display").style.display = "block";
+        			document.getElementById("pll_edit").style.display = "none";
 					$.ajax({
 						url : "Admin",
 						type : "POST",
@@ -607,7 +595,7 @@
                 			if(response.error === "false"){
                 				if(response.playlist.length > 0){
                 					for(var i = 0; i < response.playlist.length; i++){
-                						wrap_pll.innerHTML = wrap_pll.innerHTML + "<div class='pll' id='"+response.playlist[i].id+"'><img class='img_pll' id = 'idPll_img_"+response.playlist[i].id+"' src='"+response.playlist[i].img+"' alt=''><input type='text' class='name_pll' id='idPll_name_"+response.playlist[i].id+"' value='"+response.playlist[i].name+"'><input type='text' class='script_pll' id='idPll_scr_"+response.playlist[i].id+"' value='"+response.playlist[i].script+"'><div class='wrap_DEL_RE_UP'><button class='btn_beahave_song' onclick=''><img class='img_beahave_song' src='images/edit_pll.png' alt=''></button><button class='btn_beahave_song' onclick='deletePlaylist(\""+response.playlist[i].id+"\")'><img class='img_beahave_song' src='images/delete.png' alt=''></button><input type='file' class='ipn_file' style='display:none;' id='inp_img_pll_"+response.playlist[i].id+"' onchange=\"showPreview(this.id,'idPll_img_"+response.playlist[i].id+"', '"+response.playlist[i].img+"')\"><label class='btn_beahave_song' for='inp_img_pll_"+response.playlist[i].id+"'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \" Save( '"+response.playlist[i].id+"', 'inp_img_pll_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', 'idPll_img_"+response.playlist[i].id+"', 'playlist', '', '')\" ><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \" reloadInfo('playlist', 'idPll_img_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', '"+response.playlist[i].img+"', '"+response.playlist[i].name+"', '"+response.playlist[i].script+"', 'inp_img_pll_"+response.playlist[i].id+"')\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
+                						wrap_pll.innerHTML = wrap_pll.innerHTML + "<div class='pll' id='"+response.playlist[i].id+"'><img class='img_pll' id = 'idPll_img_"+response.playlist[i].id+"' src='"+response.playlist[i].img+"' alt=''><input type='text' class='name_pll' id='idPll_name_"+response.playlist[i].id+"' value='"+response.playlist[i].name+"'><input type='text' class='script_pll' id='idPll_scr_"+response.playlist[i].id+"' value='"+response.playlist[i].script+"'><div class='wrap_DEL_RE_UP'><button class='btn_beahave_song' onclick=\"Edit_playlist('"+response.playlist[i].id+"', '"+response.playlist[i].name+"', '"+response.playlist[i].script+"', '"+response.playlist[i].img+"', '"+response.playlist[i].type+"')\"><img class='img_beahave_song' src='images/edit_pll.png' alt=''></button><button class='btn_beahave_song' onclick='deletePlaylist(\""+response.playlist[i].id+"\")'><img class='img_beahave_song' src='images/delete.png' alt=''></button><input type='file' class='ipn_file' style='display:none;' id='inp_img_pll_"+response.playlist[i].id+"' onchange=\"showPreview(this.id,'idPll_img_"+response.playlist[i].id+"', '"+response.playlist[i].img+"')\"><label class='btn_beahave_song' for='inp_img_pll_"+response.playlist[i].id+"'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \" Save( '"+response.playlist[i].id+"', 'inp_img_pll_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', 'idPll_img_"+response.playlist[i].id+"', 'playlist', '', '')\" ><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \" reloadInfo('playlist', 'idPll_img_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', '"+response.playlist[i].img+"', '"+response.playlist[i].name+"', '"+response.playlist[i].script+"', 'inp_img_pll_"+response.playlist[i].id+"')\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
                 					}
                 				}else{
                 					
@@ -974,7 +962,42 @@
         	}
         }
         
-        
+        function Edit_playlist(id_pll, name, script, img, type){
+        	$.ajax({
+        		url: "Admin",
+        		type: "POST",
+        		data: {
+        			Admin_Behave: "AdAction",
+        			Admin_request: "up_pll",
+        			id : id_pll
+        		},
+        		success: function(response){
+        			var img_pll = document.getElementById("pll_img_edit");
+        			var name_pll = document.getElementById("pll_name_edit");
+        			var script_pll = document.getElementById("pll_script_edit");
+        			var pll_type_edit = document.getElementById("pll_type_edit");
+        			img_pll.src = img;
+        			name_pll.innerText = name;
+        			script_pll.innerText = script;
+        			pll_type_edit.innerText = "Type: "+type;
+        			pll_display
+        			document.getElementById("wrap_pll_display").style.display = "none";
+        			document.getElementById("pll_edit").style.display = "flex";
+        			var wrap_edit_med_pll = document.getElementById("wrap_pll_med_edit");
+        			if(response.song.length > 0){
+        				wrap_edit_med_pll.innerHTML = "";
+        				for(var i = 0; i < response.song.length; i++){
+        					wrap_edit_med_pll.innerHTML = wrap_edit_med_pll.innerHTML + "<div class='song' id='id_med_pll_edit_"+response.song[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+response.song[i].img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+response.song[i].name+"</p><p class='song_per' >"+response.song[i].per+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song'><img class='img_beahave_song' src='images/remove.png' alt=''></button></div></div>";
+        				}
+        			}else{
+        				wrap_edit_med_pll.innerHTML = "";
+        			}
+        		},
+        		error: function(response){
+        			
+        		},
+        	});
+        }
         
         function Add_new(type){
         	switch (type){
