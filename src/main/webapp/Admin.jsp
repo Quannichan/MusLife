@@ -999,6 +999,46 @@
         	});
         }
         
+        function add_to_pll(id_med, name, img, artist){
+        	$.ajax({
+        		url: "Admin",
+        		type: "POST",
+        		data: {
+        			Admin_Behave: "AdAction",
+        			Admin_request: "add_med_to_pll",
+        			id : id_med
+        		},
+        		success: function(response){
+        			var wrap_edit_med_pll = document.getElementById("wrap_pll_med_edit");
+        			wrap_edit_med_pll.innerHTML = "<div class='song' id='id_med_pll_edit_"+id_med+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+name+"</p><p class='song_per' >"+artist+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song'><img class='img_beahave_song' src='images/remove.png' alt=''></button></div></div>" + wrap_edit_med_pll.HTML;
+
+        		},
+        		error: function(response){
+        			
+        		},
+        	});
+        }
+        
+        function remove_from_pll(id_med){
+        	$.ajax({
+        		url: "Admin",
+        		type: "POST",
+        		data: {
+        			Admin_Behave: "AdAction",
+        			Admin_request: "remove_med_from_pll",
+        			id : id_med
+        		},
+        		success: function(response){
+        			var wrap_edit_med_pll = document.getElementById("wrap_pll_med_edit");
+        			wrap_edit_med_pll.innerHTML = "<div class='song' id='id_med_pll_edit_"+id_med+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+name+"</p><p class='song_per' >"+artist+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song'><img class='img_beahave_song' src='images/remove.png' alt=''></button></div></div>" + wrap_edit_med_pll.HTML;
+
+        		},
+        		error: function(response){
+        			
+        		},
+        	});
+        }
+        
         function Add_new(type){
         	switch (type){
         		case "media":
