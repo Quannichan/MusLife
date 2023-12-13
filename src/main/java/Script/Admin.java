@@ -305,7 +305,7 @@ public class Admin extends HttpServlet {
 								String data12 = "";
 								try {
 									String id_pll = request.getParameter("id");
-									String type = request.getParameter("pll_type");
+									String type = request.getParameter("type");
 									ArrayList<Integer> id_arr = new ArrayList<Integer>();
 									data12 = "{\"error\":\"false\",\"song\":[";
 									rs = stmt.executeQuery("SELECT media.id, media.media_name, media.img_path, media.performer, media.media_song_categories, media.types from media_in_playlist right join media on media_in_playlist.media_id = media.id where media_in_playlist.playlist_id = '"+id_pll+"'");
@@ -321,7 +321,8 @@ public class Admin extends HttpServlet {
 									if(id_arr.size() > 0) {
 										String id_str = id_arr.toString();
 										id_str = id_str.substring(1, id_str.length()-1);
-										String querry_get_search = "SELECT * FROM media where id NOT IN ("+id_str+") AND types = '"+type+"'";
+										String querry_get_search = "SELECT media.id, media.media_name, media.img_path, media.performer, media.media_song_categories, media.types FROM media where id NOT IN ("+id_str+") AND types = '"+type+"'";
+										System.out.println(querry_get_search);
 										rs = stmt.executeQuery(querry_get_search);
 										while(rs.next()) {
 											querry_exist = querry_exist + "{\"id\":\""+rs.getInt(1)+"\", \"name\":\""+rs.getString(2)+"\", \"img\":\""+rs.getString(3)+"\", \"per\":\""+rs.getString(4)+"\", \"cate\":\""+rs.getString(5)+"\", \"type\":\""+rs.getString(6)+"\"}";
@@ -331,7 +332,7 @@ public class Admin extends HttpServlet {
 										}
 										querry_exist = querry_exist + "]";
 									}else {
-										rs = stmt.executeQuery("SELECT * FROM media");
+										rs = stmt.executeQuery("SELECT media.id, media.media_name, media.img_path, media.performer, media.media_song_categories, media.types FROM media WHERE types = '"+type+"'");
 										while(rs.next()) {
 											querry_exist = querry_exist + "{\"id\":\""+rs.getInt(1)+"\", \"name\":\""+rs.getString(2)+"\", \"img\":\""+rs.getString(3)+"\", \"per\":\""+rs.getString(4)+"\", \"cate\":\""+rs.getString(5)+"\", \"type\":\""+rs.getString(6)+"\"}";
 											if(!rs.isLast()) {

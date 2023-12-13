@@ -1089,10 +1089,10 @@ public class Get_playlist extends HttpServlet {
 									case "see_more_pll":
 										String data = "{\"playlist\":[";
 										rs = stmt.executeQuery(
-												"SELECT playlist.playlist_id, playlist_img_path,playlist_name,playlist_script,playlist_type from playlist right join FavPlaylist on"
-														+ "FavPlaylist.playlist_id = playlist.playlist_id where user_id ='"
+												"SELECT playlist.playlist_id, playlist_img_path,playlist_name,playlist_script,playlist_type"
+														+ " from playlist right join FavPlaylist on FavPlaylist.playlist_id = playlist.playlist_id where user_id ='"
 														+ request.getSession().getAttribute("IDUS")
-														+ "'AND playlist.playlist_type = 'song'");
+														+ "'AND playlist.playlist_type = 'song';");
 										while (rs.next()) {
 											data = data + "{\"ID\":\"" + rs.getString(1) + "\",\"img\":\""
 													+ rs.getString(2) + "\",\"name\": \"" + rs.getString(3)
