@@ -318,13 +318,51 @@ public class Admin extends HttpServlet {
 						            response.setCharacterEncoding("UTF-8");
 									response.getWriter().write(data12);
 								}catch(Exception e){
-									data12 = data12 + "{\"error\":\"true\"}";
+									data12 = "{\"error\":\"true\"}";
 									response.setContentType("application/json");
 						            response.setCharacterEncoding("UTF-8");
 									response.getWriter().write(data12);
 								}
+																
+								break;
+								
+							case "remove_med_from_pll":
+								String data13 = "";
+								try{
+									data13 = "{\"error\":\"false\"}";
+									String id_med = request.getParameter("id");
+									String id_pll = request.getParameter("id_pll");
+									stmt.execute("DELETE FROM media_in_playlist where media_id = '"+id_med+"' and playlist_id = '"+id_pll+"' ");
+									response.setContentType("application/json");
+						            response.setCharacterEncoding("UTF-8");
+									response.getWriter().write(data13);
+								}catch(Exception e) {
+									data13 = "{\"error\":\"true\"}";
+									response.setContentType("application/json");
+						            response.setCharacterEncoding("UTF-8");
+									response.getWriter().write(data13);
+								}
 								
 								
+								break;
+								
+							case "add_med_to_pll":
+								String data14 = "";
+								try{
+									data14 = "{\"error\":\"false\"}";
+									String id_med = request.getParameter("id");
+									String id_pll = request.getParameter("id_pll");
+									stmt.execute("INSERT INTO media_in_playlist VALUES ("+id_med+" , "+id_pll+" )");
+									response.setContentType("application/json");
+						            response.setCharacterEncoding("UTF-8");
+									response.getWriter().write(data14);
+								}catch(Exception e) {
+									e.printStackTrace();
+									data13 = "{\"error\":\"true\"}";
+									response.setContentType("application/json");
+						            response.setCharacterEncoding("UTF-8");
+									response.getWriter().write(data14);
+								}
 								break;
 								
 							default:

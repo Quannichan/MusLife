@@ -229,118 +229,12 @@
                     <div class="wrap_pll_info">
                         <img class="img_pll_add" id="pll_img_edit" src="/images/Loi-bai-hat-Co-Em-–-Madihu-x-Low-G-780x470.jpg" alt="">
                         <div class="pll_info">
-                            <p class="info_name_pll" id="pll_name_edit">playlist name</p>
-                            <p class="info_sript_pll" id="pll_script_edit">script playlist</p>
-                            <p class="type_pll" id="pll_type_edit">Type: song</p>
+                            <p class="info_name_pll" id="pll_name_edit"></p>
+                            <p class="info_sript_pll" id="pll_script_edit"></p>
+                            <p class="type_pll" id="pll_type_edit"></p>
                         </div>
                     </div>
                     <div class="wrap_all_med_pll" id="wrap_pll_med_edit">
-
-
-                        <div class="song" id="song">
-                            <div class="song_info">
-                                <div class="wrap_song_img">
-                                    <img class="song_img" src="/images/golden_hour.jpg" alt="">
-                                </div>
-                                <div class="wrap_song_info" >
-                                    <p type="text" class="song_name" id="NAME_id_song">Name song</p>
-                                    <p class="song_per" id="ART_id_song">Artist name</p>
-                                </div>
-                            </div>
-                            <div class="wrap_beahave">
-                                <button class="btn_beahave_song"><img class="img_beahave_song" src="images/remove.png" alt=""></button>
-                            </div>
-                        </div>
-
-                        <div class="song" id="song">
-                            <div class="song_info">
-                                <div class="wrap_song_img">
-                                    <img class="song_img" src="/images/golden_hour.jpg" alt="">
-                                </div>
-                                <div class="wrap_song_info" >
-                                    <p type="text" class="song_name" id="NAME_id_song">Name song</p>
-                                    <p class="song_per" id="ART_id_song">Artist name</p>
-                                </div>
-                            </div>
-                            <div class="wrap_beahave">
-                                <button class="btn_beahave_song"><img class="img_beahave_song" src="/images/remove.png" alt=""></button>
-                            </div>
-                        </div>
-
-                        <div class="song" id="song">
-                            <div class="song_info">
-                                <div class="wrap_song_img">
-                                    <img class="song_img" src="/images/golden_hour.jpg" alt="">
-                                </div>
-                                <div class="wrap_song_info" >
-                                    <p type="text" class="song_name" id="NAME_id_song">Name song</p>
-                                    <p class="song_per" id="ART_id_song">Artist name</p>
-                                </div>
-                            </div>
-                            <div class="wrap_beahave">
-                                <button class="btn_beahave_song"><img class="img_beahave_song" src="/images/remove.png" alt=""></button>
-                            </div>
-                        </div>
-
-                        <div class="song" id="song">
-                            <div class="song_info">
-                                <div class="wrap_song_img">
-                                    <img class="song_img" src="/images/golden_hour.jpg" alt="">
-                                </div>
-                                <div class="wrap_song_info" >
-                                    <p type="text" class="song_name" id="NAME_id_song">Name song</p>
-                                    <p class="song_per" id="ART_id_song">Artist name</p>
-                                </div>
-                            </div>
-                            <div class="wrap_beahave">
-                                <button class="btn_beahave_song"><img class="img_beahave_song" src="/images/remove.png" alt=""></button>
-                            </div>
-                        </div>
-
-                        <div class="song" id="song">
-                            <div class="song_info">
-                                <div class="wrap_song_img">
-                                    <img class="song_img" src="images/golden_hour.jpg" alt="">
-                                </div>
-                                <div class="wrap_song_info" >
-                                    <p type="text" class="song_name" id="NAME_id_song">Name song</p>
-                                    <p class="song_per" id="ART_id_song">Artist name</p>
-                                </div>
-                            </div>
-                            <div class="wrap_beahave">
-                                <button class="btn_beahave_song"><img class="img_beahave_song" src="/images/remove.png" alt=""></button>
-                            </div>
-                        </div>
-
-                        <div class="song" id="song">
-                            <div class="song_info">
-                                <div class="wrap_song_img">
-                                    <img class="song_img" src="/images/golden_hour.jpg" alt="">
-                                </div>
-                                <div class="wrap_song_info" >
-                                    <p type="text" class="song_name" id="NAME_id_song">Name song</p>
-                                    <p class="song_per" id="ART_id_song">Artist name</p>
-                                </div>
-                            </div>
-                            <div class="wrap_beahave">
-                                <button class="btn_beahave_song"><img class="img_beahave_song" src="/images/remove.png" alt=""></button>
-                            </div>
-                        </div>
-
-                        <div class="song" id="song">
-                            <div class="song_info">
-                                <div class="wrap_song_img">
-                                    <img class="song_img" src="/images/golden_hour.jpg" alt="">
-                                </div>
-                                <div class="wrap_song_info" >
-                                    <p type="text" class="song_name" id="NAME_id_song">Name song</p>
-                                    <p class="song_per" id="ART_id_song">Artist name</p>
-                                </div>
-                            </div>
-                            <div class="wrap_beahave">
-                                <button class="btn_beahave_song"><img class="img_beahave_song" src="/images/remove.png" alt=""></button>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
@@ -987,7 +881,7 @@
         			if(response.song.length > 0){
         				wrap_edit_med_pll.innerHTML = "";
         				for(var i = 0; i < response.song.length; i++){
-        					wrap_edit_med_pll.innerHTML = wrap_edit_med_pll.innerHTML + "<div class='song' id='id_med_pll_edit_"+response.song[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+response.song[i].img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+response.song[i].name+"</p><p class='song_per' >"+response.song[i].per+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song'><img class='img_beahave_song' src='images/remove.png' alt=''></button></div></div>";
+        					wrap_edit_med_pll.innerHTML = wrap_edit_med_pll.innerHTML + "<div class='song' id='id_med_pll_edit_"+response.song[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+response.song[i].img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+response.song[i].name+"</p><p class='song_per' >"+response.song[i].per+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick=\"remove_from_pll('"+id_pll+"','"+response.song[i].id+"', '"+response.song[i].name+"', '"+response.song[i].img+"', '"+response.song[i].per+"')\"><img class='img_beahave_song' src='images/remove.png' alt=''></button></div></div>";
         				}
         			}else{
         				wrap_edit_med_pll.innerHTML = "";
@@ -999,19 +893,32 @@
         	});
         }
         
-        function add_to_pll(id_med, name, img, artist){
+        function add_to_pll( id_pll ,id_med, name, img, artist){
         	$.ajax({
         		url: "Admin",
         		type: "POST",
         		data: {
         			Admin_Behave: "AdAction",
         			Admin_request: "add_med_to_pll",
-        			id : id_med
+        			id : id_med,
+        			id_pll: id_pll
         		},
         		success: function(response){
-        			var wrap_edit_med_pll = document.getElementById("wrap_pll_med_edit");
-        			wrap_edit_med_pll.innerHTML = "<div class='song' id='id_med_pll_edit_"+id_med+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+name+"</p><p class='song_per' >"+artist+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song'><img class='img_beahave_song' src='images/remove.png' alt=''></button></div></div>" + wrap_edit_med_pll.HTML;
-
+        			if(response.error === "false"){
+        				var wrap_edit_med_pll = document.getElementById("wrap_pll_med_edit");
+            			var wrap_edit_pll_search = document.getElementById("wrap_list_song_playlist");
+            			
+            			for (var i = 0; i < wrap_edit_pll_search.children.length; i++) {
+      			  			if(wrap_edit_pll_search.children[i].id === "id_med_pll_search_"+id_med){
+      			  				wrap_edit_pll_search.removeChild(wrap_edit_pll_search.children[i]);
+      			  				break;
+      			  			}
+    		  		  	}
+            			wrap_edit_med_pll.innerHTML = "<div class='song' id='id_med_pll_edit_"+id_med+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+name+"</p><p class='song_per' >"+artist+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick=\"remove_from_pll('"+id_pll+"','"+id_med+"', '"+name+"', '"+img+"', '"+artist+"')\"><img class='img_beahave_song' src='images/plus.png' alt=''></button></div></div>" + wrap_edit_med_pll.innerHTML;
+        			}else if(response.error === "true"){
+        				
+        			}
+        			
         		},
         		error: function(response){
         			
@@ -1019,19 +926,33 @@
         	});
         }
         
-        function remove_from_pll(id_med){
+        function remove_from_pll(id_pll, id_med, name, img, artist){
         	$.ajax({
         		url: "Admin",
         		type: "POST",
         		data: {
         			Admin_Behave: "AdAction",
         			Admin_request: "remove_med_from_pll",
-        			id : id_med
+        			id : id_med,
+        			id_pll: id_pll
         		},
         		success: function(response){
-        			var wrap_edit_med_pll = document.getElementById("wrap_pll_med_edit");
-        			wrap_edit_med_pll.innerHTML = "<div class='song' id='id_med_pll_edit_"+id_med+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+name+"</p><p class='song_per' >"+artist+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song'><img class='img_beahave_song' src='images/remove.png' alt=''></button></div></div>" + wrap_edit_med_pll.HTML;
-
+        			if(response.error === "false"){
+        				var wrap_edit_med_pll = document.getElementById("wrap_pll_med_edit");
+            			var wrap_edit_pll_search = document.getElementById("wrap_list_song_playlist");
+            			
+            			for (var i = 0; i < wrap_edit_med_pll.children.length; i++) {
+      			  			if(wrap_edit_med_pll.children[i].id === "id_med_pll_edit_"+id_med){
+      			  				wrap_edit_med_pll.removeChild(wrap_edit_med_pll.children[i]);
+      			  				break;
+      			  			}
+    		  		  	}
+            			wrap_edit_pll_search.innerHTML = "<div class='song' id='id_med_pll_search_"+id_med+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+name+"</p><p class='song_per' >"+artist+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick=\"add_to_pll('"+id_pll+"','"+id_med+"', '"+name+"', '"+img+"', '"+artist+"')\"><img class='img_beahave_song' src='images/plus.png' alt=''></button></div></div>" + wrap_edit_pll_search.innerHTML;
+    					
+        			}else if(response.error === "true"){
+        				
+        			}
+        			
         		},
         		error: function(response){
         			
