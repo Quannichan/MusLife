@@ -863,7 +863,8 @@
         		data: {
         			Admin_Behave: "AdAction",
         			Admin_request: "up_pll",
-        			id : id_pll
+        			id : id_pll,
+        			pll_type = type
         		},
         		success: function(response){
         			var img_pll = document.getElementById("pll_img_edit");
@@ -886,6 +887,7 @@
         			}else{
         				wrap_edit_med_pll.innerHTML = "";
         			}
+        			
         		},
         		error: function(response){
         			
