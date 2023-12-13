@@ -556,7 +556,7 @@ request.getSession().setAttribute("CP",null);
 				            <h2 class="head_nof">Something went wrong, please refresh!</h2>
 				            </div>
 				            <div class="wrap_but_nof">
-				                <button onclick="window.location.reload()" class="no_nof">Refresh</button>
+				                <button onclick="window.location.reload()" class="no_nof">Ok</button>
 				            </div>
 				        </div>
 				    </div>

@@ -365,7 +365,18 @@
 	<form style="display:none;" id="loo" action="Logout" method="post"><input type="hidden" value="logout" name="loo"></form>
 
     </div>
-
+	<div id="wrap_out_mes_error" class="wrap_out_nof">
+				    <div class="wrap_nof">
+				        <div class="nof">
+				            <div class="wrap_head_nof">
+				            <h2 class="head_nof">Something went wrong, please refresh!</h2>
+				            </div>
+				            <div class="wrap_but_nof">
+				                <button onclick="window.location.reload()" class="no_nof">Ok</button>
+				            </div>
+				        </div>
+				    </div>
+				</div>
     <script>
     	var interval = setInterval(()=>{},5000);
     	function create_playlist(){
@@ -454,11 +465,13 @@
         		  	        		}
         		  	        	}
                 			}else if(response.error === "true"){
-                				
+                            	document.getElementById("wrap_out_mes_error").style.display = "flex";
+
                 			}
                 		},
                 		error: function(response){
-                			
+                        	document.getElementById("wrap_out_mes_error").style.display = "flex";
+
                 		}
                 	});
                     break;
@@ -494,12 +507,12 @@
                 					
                 				}
 							}else if(response.error === "true"){
-	            				
+			                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 	            			}
 						},
 
 						error: function(response){
-							
+		                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 						}
 					});
                     break;
@@ -533,12 +546,12 @@
                 					wrap_artist.innerHTML = "";
                 				}
 							}else if(response.error === "true"){
-	            				
+			                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 	            			}
 						},
 
 						error: function(response){
-							
+		                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 						}
 					});
                     break;
@@ -572,12 +585,12 @@
                 					wrap_cate.innerHTML = "";
                 				}
 							}else if(response.error === "true"){
-	            				
+			                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 	            			}
 						},
 
 						error: function(response){
-							
+		                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 						}
 					});
                     break;
@@ -613,12 +626,12 @@
                 					wrap_user.innerHTML = "";
                 				}
 							}else if(response.error === "true"){
-	            				
+			                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 	            			}
 						},
 
 						error: function(response){
-							
+		                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 						}
 					});
                     break;
@@ -648,14 +661,14 @@
     	  			  			}
     			  		  	}
         				}else if(response.delStt === "false"){
-        					
+                        	document.getElementById("wrap_out_mes_error").style.display = "flex";
         				}
         			}else if(response.error === "true"){
-        				
+                    	document.getElementById("wrap_out_mes_error").style.display = "flex";
         			}
         		},
         		error: function (response){
-        			
+                	document.getElementById("wrap_out_mes_error").style.display = "flex";
         		},
         	});
         }
@@ -681,14 +694,14 @@
     	  			  			}
     			  		  	}
         				}else if(response.delStt === "false"){
-        					
+                        	document.getElementById("wrap_out_mes_error").style.display = "flex";
         				}
         			}else if(response.error === "true"){
-        				
+                    	document.getElementById("wrap_out_mes_error").style.display = "flex";
         			}
         		},
         		error: function (response){
-        			
+                	document.getElementById("wrap_out_mes_error").style.display = "flex";
         		},
         	});
         }
@@ -715,14 +728,14 @@
     	  			  			}
     			  		  	}
         				}else if(response.delStt === "false"){
-        					
+                        	document.getElementById("wrap_out_mes_error").style.display = "flex";
         				}
         			}else if(response.error === "true"){
-        				
+                    	document.getElementById("wrap_out_mes_error").style.display = "flex";
         			}
         		},
         		error: function (response){
-        			
+                	document.getElementById("wrap_out_mes_error").style.display = "flex";
         		},
         	});
         }
@@ -769,11 +782,11 @@
 						if(response.error === "false"){
 							Apprear("CATE");
 						}else if(response.error === "true"){
-							
+		                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 						}
 					},
 					error: function(){
-						
+	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 					},
   				});
         	}else if(type === "media"){
@@ -793,12 +806,11 @@
     	  	        	var response = JSON.parse(xhr.responseText);
     	  	        	if(response.error === "false"){
     	  	        		Apprear("MEDIA");
-    	  	        	}else{
-    	  	        		
+    	  	        	}else if(response.error === "true"){
+    	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
     	  	        	}
     	  	        	
     	  	        }else{
-    	  	        	
     	  	        }
     	  	    };
     	  	    xhr.send(formData);
@@ -819,8 +831,8 @@
     	  	        	var response = JSON.parse(xhr.responseText);
     	  	        	if(response.error === "false"){
     	  	        		Apprear("ART");
-    	  	        	}else{
-    	  	        		
+    	  	        	}else if(response.error === "true"){
+    	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
     	  	        	}
     	  	        	
     	  	        }else{
@@ -845,8 +857,8 @@
     	  	        	var response = JSON.parse(xhr.responseText);
     	  	        	if(response.error === "false"){
         	  	        	Apprear("PLL");
-    	  	        	}else{
-    	  	        		
+    	  	        	}else if(response.error === "true"){
+    	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
     	  	        	}
     	  	        }else{
     	  	        }
@@ -899,7 +911,8 @@
         			wrap_search.innerHTML = " <input type='text' class='search_song' id='search_med_pll_edit' placeholder='Search here!'><button class='search_song_btn' onclick=\"search('"+id_pll+"','playlist_edit', 'search_med_pll_edit', '"+type+"')\">Find</button>"
         		},
         		error: function(response){
-        			
+                	document.getElementById("wrap_out_mes_error").style.display = "flex";
+
         		},
         	});
         }
@@ -927,12 +940,12 @@
     		  		  	}
             			wrap_edit_med_pll.innerHTML = "<div class='song' id='id_med_pll_edit_"+id_med+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+name+"</p><p class='song_per' >"+artist+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick=\"remove_from_pll('"+id_pll+"','"+id_med+"', '"+name+"', '"+img+"', '"+artist+"')\"><img class='img_beahave_song' src='images/remove.png' alt=''></button></div></div>" + wrap_edit_med_pll.innerHTML;
         			}else if(response.error === "true"){
-        				
+	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
         			}
         			
         		},
         		error: function(response){
-        			
+                	document.getElementById("wrap_out_mes_error").style.display = "flex";
         		},
         	});
         }
@@ -961,12 +974,12 @@
             			wrap_edit_pll_search.innerHTML = "<div class='song' id='id_med_pll_search_"+id_med+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+name+"</p><p class='song_per' >"+artist+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick=\"add_to_pll('"+id_pll+"','"+id_med+"', '"+name+"', '"+img+"', '"+artist+"')\"><img class='img_beahave_song' src='images/plus.png' alt=''></button></div></div>" + wrap_edit_pll_search.innerHTML;
     					
         			}else if(response.error === "true"){
-        				
+	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
         			}
         			
         		},
         		error: function(response){
-        			
+                	document.getElementById("wrap_out_mes_error").style.display = "flex";
         		},
         	});
         }
@@ -1029,8 +1042,8 @@
 	    	  	        	var response = JSON.parse(xhr.responseText);
 	    	  	        	if(response.error === "false"){
 	    	  	        		Apprear("MEDIA");
-	    	  	        	}else{
-	    	  	        		
+	    	  	        	}else if(response.error === "true"){
+	    	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 	    	  	        	}
 	    	  	        }else{
 	    	  	        }
@@ -1064,14 +1077,14 @@
         						Apprear("PLL");
         						turn_off_create_playlist();
         					}else if(respnse.error === "true"){
-        						turn_off_create_playlist();
+	    	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
         					}else if(respnse.error === "nullname"){
         						turn_off_create_playlist();
         					}
         					
         				},
         				error: function (response){
-        					
+    	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
         				} 
         			});
         			
@@ -1092,11 +1105,11 @@
 								var wrap_cate = document.getElementById("wrap_list_cate");
 	                			wrap_cate.innerHTML =  " <div class='song'><div class='song_info'><div class='wrap_song_info'><input type='text' class='song_name' value='"+response.name+"' id='idCate_name_"+response.id+"'></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick = \"Save('"+response.id+"', '', 'idCate_name_"+response.id+"', '', '', 'cate', '"+response.name+"', '')\"><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \"reloadInfo('cate', '', 'idCate_name_"+response.id+"', '', '', '"+response.name+"', '', '')\" ><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div> " + wrap_cate.innerHTML ;	                				
 							}else if(response.error === "true"){
-								
+	    	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 							}
 						},
 						error: function(){
-							
+    	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 						},
         			});
         			break;
@@ -1129,8 +1142,8 @@
 	    	  	        	var response = JSON.parse(xhr.responseText);
 	    	  	        	if(response.error === "false"){
 	    	  	        		Apprear("ART");
-	    	  	        	}else{
-	    	  	        		
+	    	  	        	}else if(response.error === "true"){
+	    	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
 	    	  	        	}
 	    	  	        }else{
 	    	  	        }
@@ -1390,12 +1403,12 @@
 		    					break;
     	  				}
         			}else if(response.error === "true"){
-        				
+	                	document.getElementById("wrap_out_mes_error").style.display = "flex";
         			}
         			
         		},
         		error: function(response){
-        			
+                	document.getElementById("wrap_out_mes_error").style.display = "flex";
         		},
 	  		});
 	  		
