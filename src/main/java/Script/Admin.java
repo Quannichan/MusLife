@@ -387,11 +387,184 @@ public class Admin extends HttpServlet {
 									response.getWriter().write(data14);
 								}catch(Exception e) {
 									e.printStackTrace();
-									data13 = "{\"error\":\"true\"}";
+									data14 = "{\"error\":\"true\"}";
 									response.setContentType("application/json");
 						            response.setCharacterEncoding("UTF-8");
 									response.getWriter().write(data14);
 								}
+								break;
+								
+							case "search":
+								String id = request.getParameter("id_pll");
+								String type = request.getParameter("type");
+								String search = request.getParameter("search");
+								String data15 = "";
+								try {
+									if(id.equals("")) {
+										switch(type) {
+										case "media":
+											if(search.equals("")) {
+												data15 = "{\"error\":\"false\",\"type\":\""+type+"\", \"song\": [";
+												rs = stmt.executeQuery("SELECT * FROM Media order by id DESC");
+												while(rs.next()) {
+													data15 = data15 + "{\"id\":\""+rs.getInt(1)+"\", \"img\": \""+rs.getString(2)+"\", \"name\": \""+rs.getString(3)+"\", \"per\":\""+rs.getString(4)+"\", \"cate\": \""+rs.getString(6)+"\", \"year\": \""+rs.getString(7)+"\", \"types\": \""+rs.getString(8)+"\"}";
+													if(!rs.isLast()) {
+														data15 = data15 + ", ";
+													} else {
+														
+													}
+												}
+												data15 = data15 + "]}";
+												response.setContentType("application/json");
+									            response.setCharacterEncoding("UTF-8");
+												response.getWriter().write(data15);
+											}else {
+												data15 = "{\"error\":\"false\",\"type\":\""+type+"\", \"song\": [";
+												rs = stmt.executeQuery("SELECT * FROM Media where media_name LIKE '%"+search+"%' order by id DESC ");
+												while(rs.next()) {
+													data15 = data15 + "{\"id\":\""+rs.getInt(1)+"\", \"img\": \""+rs.getString(2)+"\", \"name\": \""+rs.getString(3)+"\", \"per\":\""+rs.getString(4)+"\", \"cate\": \""+rs.getString(6)+"\", \"year\": \""+rs.getString(7)+"\", \"types\": \""+rs.getString(8)+"\"}";
+													if(!rs.isLast()) {
+														data15 = data15 + ", ";
+													} else {
+														
+													}
+												}
+												data15 = data15 + "]}";
+												response.setContentType("application/json");
+									            response.setCharacterEncoding("UTF-8");
+												response.getWriter().write(data15);
+											}
+											break;
+										
+										case "artist":
+											if(search.equals("")) {
+												data15 = "{\"error\":\"false\", \"type\":\""+type+"\", \"artist\": [";
+												rs = stmt.executeQuery("SELECT * FROM Performer order by per_id DESC");
+												while(rs.next()) {
+													data15 = data15 + "{\"id\":\""+rs.getInt(1)+"\", \"img\":\""+rs.getString(2)+"\", \"name\":\""+rs.getString(3)+"\", \"per_type\" :\""+rs.getString(4)+"\" }";
+													if(!rs.isLast()) {
+														data15 = data15 + ", ";
+													}else {
+														
+													}
+												}
+												data15 = data15 + "]}";
+												response.setContentType("application/json");
+									            response.setCharacterEncoding("UTF-8");
+												response.getWriter().write(data15);
+											}else {
+												data15 = "{\"error\":\"false\",\"type\":\""+type+"\", \"artist\": [";
+												rs = stmt.executeQuery("SELECT * FROM Performer where per_name LIKE '%"+search+"%' order by per_id DESC");
+												while(rs.next()) {
+													data15 = data15 + "{\"id\":\""+rs.getInt(1)+"\", \"img\":\""+rs.getString(2)+"\", \"name\":\""+rs.getString(3)+"\", \"per_type\" :\""+rs.getString(4)+"\" }";
+													if(!rs.isLast()) {
+														data15 = data15 + ", ";
+													}else {
+														
+													}
+												}
+												data15 = data15 + "]}";
+												response.setContentType("application/json");
+									            response.setCharacterEncoding("UTF-8");
+												response.getWriter().write(data15);
+											}
+											break;
+											
+										case "cate":
+											if(search.equals("")) {
+												data15 = "{\"error\":\"false\", \"type\":\""+type+"\", \"cate\": [";
+												rs = stmt.executeQuery("SELECT * FROM med_cate order by id DESC");
+												while(rs.next()) {
+													data15 = data15 + "{\"id\":\""+rs.getInt(1)+"\", \"name\":\""+rs.getString(2)+"\"}";
+													if(!rs.isLast()) {
+														data15 = data15 + ", ";
+													}else {
+													}
+												}
+												data15 = data15 + "]}";
+												response.setContentType("application/json");
+									            response.setCharacterEncoding("UTF-8");
+												response.getWriter().write(data15);
+											}else {
+												data15 = "{\"error\":\"false\", \"type\":\""+type+"\", \"cate\": [";
+												rs = stmt.executeQuery("SELECT * FROM med_cate where cate_name LIKE '%"+search+"%' order by id DESC");
+												while(rs.next()) {
+													data15 = data15 + "{\"id\":\""+rs.getInt(1)+"\", \"name\":\""+rs.getString(2)+"\"}";
+													if(!rs.isLast()) {
+														data15 = data15 + ", ";
+													}else {
+													}
+												}
+												data15 = data15 + "]}";
+												response.setContentType("application/json");
+									            response.setCharacterEncoding("UTF-8");
+												response.getWriter().write(data15);
+											}
+											break;
+										
+										default:
+											data15 = "{\"error\":\"true\"}";
+											response.setContentType("application/json");
+								            response.setCharacterEncoding("UTF-8");
+											response.getWriter().write(data15);
+											break;
+										}
+									} else {
+										String pll_type = request.getParameter("pll_type");
+										if(search.equals("")) {
+											ArrayList<Integer> id_arr = new ArrayList<Integer>();
+											rs = stmt.executeQuery("SELECT media.id from media_in_playlist right join media on media_in_playlist.media_id = media.id where media_in_playlist.playlist_id = '"+id+"'");
+											while(rs.next()) {
+												id_arr.add(rs.getInt(1));
+											}
+											String id_str = id_arr.toString();
+											id_str = id_str.substring(1, id_str.length()-1);
+											String querry_get_search = "SELECT media.id, media.media_name, media.img_path, media.performer, media.media_song_categories, media.types FROM media where id NOT IN ("+id_str+") AND types = '"+pll_type+"'";
+
+											data15 = "{\"error\":\"false\", \"type\":\""+type+"\", \"med_search\": [";
+											rs = stmt.executeQuery(querry_get_search);
+											while(rs.next()) {
+												data15 = data15 + "{\"id\":\""+rs.getInt(1)+"\", \"name\":\""+rs.getString(2)+"\", \"img\":\""+rs.getString(3)+"\", \"per\":\""+rs.getString(4)+"\", \"cate\":\""+rs.getString(5)+"\", \"type\":\""+rs.getString(6)+"\"}";
+												if(!rs.isLast()) {
+													data15 = data15 + ", ";
+												}
+											}
+											data15 = data15 + "]}";
+											response.setContentType("application/json");
+								            response.setCharacterEncoding("UTF-8");
+											response.getWriter().write(data15);
+										} else {
+											ArrayList<Integer> id_arr = new ArrayList<Integer>();
+											rs = stmt.executeQuery("SELECT media.id from media_in_playlist right join media on media_in_playlist.media_id = media.id where media_in_playlist.playlist_id = '"+id+"'");
+											while(rs.next()) {
+												id_arr.add(rs.getInt(1));
+											}
+											String id_str = id_arr.toString();
+											id_str = id_str.substring(1, id_str.length()-1);
+											String querry_get_search = "SELECT media.id, media.media_name, media.img_path, media.performer, media.media_song_categories, media.types FROM media where id NOT IN ("+id_str+") AND types = '"+pll_type+"' AND media.media_name LIKE '%"+search+"%'";
+
+											data15 = "{\"error\":\"false\", \"type\":\""+type+"\", \"med_search\": [";
+											rs = stmt.executeQuery(querry_get_search);
+											while(rs.next()) {
+												data15 = data15 + "{\"id\":\""+rs.getInt(1)+"\", \"name\":\""+rs.getString(2)+"\", \"img\":\""+rs.getString(3)+"\", \"per\":\""+rs.getString(4)+"\", \"cate\":\""+rs.getString(5)+"\", \"type\":\""+rs.getString(6)+"\"}";
+												if(!rs.isLast()) {
+													data15 = data15 + ", ";
+												}
+											}
+											data15 = data15 + "]}";
+											response.setContentType("application/json");
+								            response.setCharacterEncoding("UTF-8");
+											response.getWriter().write(data15);
+										}
+									}
+								}catch(Exception e) {
+									e.printStackTrace();
+									data15 = "{\"error\":\"true\"}";
+									response.setContentType("application/json");
+						            response.setCharacterEncoding("UTF-8");
+									response.getWriter().write(data15);
+								}
+								
 								break;
 								
 							default:

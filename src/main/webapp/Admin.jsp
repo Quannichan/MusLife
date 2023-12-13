@@ -81,8 +81,8 @@
                         <h2 class="head_list_left">Media</h2>
                     </div>
                     <div class="wrap_search_song">
-                        <input type="text" class="search_song" id="search_song" placeholder="Search here!">
-                        <button class="search_song_btn">Find</button>
+                        <input type="text" class="search_song" id="search_med" placeholder="Search here!">
+                        <button class="search_song_btn" onclick="search('','media', 'search_med', '')">Find</button>
                     </div>
                     <div class="wrap_list_song" id="wrap_list_med">
 
@@ -197,9 +197,8 @@
                     <div class="song_list_left_head">
                         <h2 class="head_list_left">Media</h2>
                     </div>
-                    <div class="wrap_search_song">
-                        <input type="text" class="search_song" id="search_song" placeholder="Search here!">
-                        <button class="search_song_btn">Find</button>
+                    <div class="wrap_search_song" id="wrap_search_input">
+                       
                     </div>
                     <div class="wrap_list_song" id="wrap_list_song_playlist">
 
@@ -262,8 +261,8 @@
                         <h2 class="head_list_left">Artists</h2>
                     </div>
                     <div class="wrap_search_song">
-                        <input type="text" class="search_song" id="search_song" placeholder="Search here!">
-                        <button class="search_song_btn">Find</button>
+                        <input type="text" class="search_song" id="search_artist" placeholder="Search here!">
+                        <button class="search_song_btn" onclick="search('','artist', 'search_artist', '')">Find</button>
                     </div>
                     <div class="wrap_list_song" id="wrap_list_artist">
                         
@@ -324,8 +323,8 @@
                         <h2 class="head_list_left">Categories</h2>
                     </div>
                     <div class="wrap_search_song">
-                        <input type="text" class="search_song" id="search_song" placeholder="Search here!">
-                        <button class="search_song_btn">Find</button>
+                        <input type="text" class="search_song" id="search_cate" placeholder="Search here!">
+                        <button class="search_song_btn" onclick="search('','cate', 'search_cate', '')">Find</button>
                     </div>
                     <div class="wrap_list_song" id="wrap_list_cate">
 
@@ -896,7 +895,8 @@
         			}else{
         				wrap_med_search_pll.innerHTML = "";
         			}
-        			
+        			var wrap_search = document.getElementById("wrap_search_input");
+        			wrap_search.innerHTML = " <input type='text' class='search_song' id='search_med_pll_edit' placeholder='Search here!'><button class='search_song_btn' onclick=\"search('"+id_pll+"','playlist_edit', 'search_med_pll_edit', '"+type+"')\">Find</button>"
         		},
         		error: function(response){
         			
@@ -1325,8 +1325,83 @@
 	  		  "image/png"
 	  		];
 	  	  
-	  	function search(id_pll, type){
+	  	function search(id_pll, type, id_input, pll_type){
+	  		var search = document.getElementById(id_input);
+	  		$.ajax({
+	  			url: "Admin",
+        		type: "POST",
+        		data: {
+        			Admin_Behave: "AdAction",
+        			Admin_request: "search",
+        			type : type,
+        			id_pll: id_pll,
+        			search : search.value,
+        			pll_type: pll_type
+        		},
+        		success : function(response){
+        			if(response.error === "false"){
+        				switch(response.type){
+		    	  			case "media":
+		    	  				var media_search = document.getElementById("wrap_list_med");
+			    	  				if(response.song.length > 0){
+			    	  					media_search.innerHTML = "";
+			    	  					for(var i = 0 ; i < response.song.length; i++){
+			    	  						media_search.innerHTML = media_search.innerHTML + "<div class='song' id='"+response.song[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' id='idMed_img_"+response.song[i].id+"' src='"+response.song[i].img+"' alt=''></div><div class='wrap_song_info'><input type='text' class='song_name' value='"+response.song[i].name+"' id='idMed_name_"+response.song[i].id+"'><p class='song_per'>"+response.song[i].per+"</p><p class='song_per'>"+response.song[i].types+", "+response.song[i].cate+", "+response.song[i].year+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick='deleteMedia(\""+response.song[i].id+"\")'><img class='img_beahave_song' src='images/delete.png' alt=''></button><input type='file' class='ipn_file' style='display:none;' id='inp_img_med_"+response.song[i].id+"' onchange=\"showPreview(this.id,'idMed_img_"+response.song[i].id+"', '"+response.song[i].img+"')\"><label class='btn_beahave_song' style='display:flex; justify-content: center; align-item: center;' for='inp_img_med_"+response.song[i].id+"'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \"Save('"+response.song[i].id+"', 'inp_img_med_"+response.song[i].id+"', 'idMed_name_"+response.song[i].id+"', '', 'idMed_img_"+response.song[i].id+"', 'media', '', '"+response.song[i].types+"')\"><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \"reloadInfo('media', 'idMed_img_"+response.song[i].id+"', 'idMed_name_"+response.song[i].id+"', '', '"+response.song[i].img+"', '"+response.song[i].name+"', '', 'inp_img_med_"+response.song[i].id+"' )\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
+			    	  					}
+			    	  				}else{
+			    	  					media_search.innerHTML = "";
+			    	  				}
+		    	  				break;
+		    	  				
+		    				case "cate":
+		    					var cate_search = document.getElementById("wrap_list_cate");
+		    					if(response.cate.length > 0){
+		    						cate_search.innerHTML = "";
+		    	  					for(var i = 0 ; i < response.cate.length; i++){
+		    	  						cate_search.innerHTML = cate_search.innerHTML + " <div class='song'><div class='song_info'><div class='wrap_song_info'><input type='text' class='song_name' value='"+response.cate[i].name+"' id='idCate_name_"+response.cate[i].id+"'></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick = \"Save('"+response.cate[i].id+"', '', 'idCate_name_"+response.cate[i].id+"', '', '', 'cate', '"+response.cate[i].name+"', '')\"><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \"reloadInfo('cate', '', 'idCate_name_"+response.cate[i].id+"', '', '', '"+response.cate[i].name+"', '', '')\" ><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div> ";
+		    	  					}
+		    	  				}else{
+		    	  					cate_search.innerHTML = "";
+		    	  				}
+		    	  				break;
+		    	  				
+		    				case "artist":
+		    					var artist_search = document.getElementById("wrap_list_artist");
+		    					if(response.artist.length > 0){
+		    						artist_search.innerHTML = "";
+		    	  					for(var i = 0 ; i < response.artist.length; i++){
+		    	  						artist_search.innerHTML = artist_search.innerHTML + "<div class='song' id='"+response.artist[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' id = 'idArt_img_"+response.artist[i].id+"' src='"+response.artist[i].img+"' alt=''></div><div class='wrap_song_info'><input type='text' class='song_name' value='"+response.artist[i].name+"' id='idArt_name_"+response.artist[i].id+"'><p class='song_per'>"+response.artist[i].per_type+"</p></div></div><div class='wrap_beahave'><input type='file' class='ipn_file' style='display:none;' id='inp_img_art_"+response.artist[i].id+"' onchange=\"showPreview(this.id,'idArt_img_"+response.artist[i].id+"', '"+response.artist[i].img+"')\"><label class='btn_beahave_song' for='inp_img_art_"+response.artist[i].id+"' style='display:flex; justify-content: center; align-item: center;'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \"Save('"+response.artist[i].id+"', 'inp_img_art_"+response.artist[i].id+"', 'idArt_name_"+response.artist[i].id+"', '', 'idArt_img_"+response.artist[i].id+"', 'artist', '"+response.artist[i].name+"', '')\"><img class='img_beahave_song' src='images/upload.png'  alt=''></button><button class='btn_beahave_song' onclick = \"reloadInfo('artist', 'idArt_img_"+response.artist[i].id+"', 'idArt_name_"+response.artist[i].id+"', '', '"+response.artist[i].img+"', '"+response.artist[i].name+"', '', 'inp_img_art_"+response.artist[i].id+"')\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
+		    	  					}
+		    	  				}else{
+		    	  					artist_search.innerHTML = "";
+		    	  				}
+		    	  				break;
+		    	  				
+		    				case "playlist_edit":
+		    					var pll_search = document.getElementById("wrap_list_song_playlist");
+		    					if(response.med_search.length > 0){
+		    						pll_search.innerHTML = "";
+		    	  					for(var i = 0 ; i < response.med_search.length; i++){
+		    	  						pll_search.innerHTML = pll_search.innerHTML + "<div class='song' id='id_med_pll_search_"+response.med_search[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+response.med_search[i].img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+response.med_search[i].name+"</p><p class='song_per' >"+response.med_search[i].per+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick=\"add_to_pll('"+id_pll+"','"+response.med_search[i].id+"', '"+response.med_search[i].name+"', '"+response.med_search[i].img+"', '"+response.med_search[i].per+"')\"><img class='img_beahave_song' src='images/plus.png' alt=''></button></div></div>";
+		    	  					}
+		    	  				}else{
+		    	  					pll_search.innerHTML = "";
+		    	  				}
+		    					break;
+    	  				}
+        			}else if(response.error === "true"){
+        				
+        			}
+        			
+        		},
+        		error: function(response){
+        			
+        		},
+	  		});
 	  		
+	  		
+	  			
+	  			
 	  	}
         
     </script>
