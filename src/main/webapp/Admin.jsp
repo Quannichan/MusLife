@@ -85,7 +85,9 @@
                         <button class="search_song_btn" onclick="search('','media', 'search_med', '')">Find</button>
                     </div>
                     <div class="wrap_list_song" id="wrap_list_med">
-
+						<div class="wrap_loader" id="loader_media">
+                            <div class="custom-loader"></div>
+                        </div>
                     </div>
                 </div>
                 
@@ -202,31 +204,12 @@
                     </div>
                     <div class="wrap_list_song" id="wrap_list_song_playlist">
 
-
-                        <div class="song">
-                            <div class="song_info">
-                                <div class="wrap_song_img">
-                                    <img class="song_img" src="/images/golden_hour.jpg" alt="">
-                                </div>
-                                <div class="wrap_song_info">
-                                    <p type="text" class="song_name" id="NAME_id_song">Name song</p>
-                                    <p class="song_per" id="ART_id_song">Artist name</p>
-                                </div>
-                            </div>
-                            <div class="wrap_beahave">
-                                <button class="btn_beahave_song"><img class="img_beahave_song" src="/images/plus.png" alt=""></button>
-                            </div>
-                        </div>
-
-                        
-
-                        
                     </div>
                 </div>
 
                 <div class="wrap_pll_right" >
                     <div class="wrap_pll_info">
-                        <img class="img_pll_add" id="pll_img_edit" src="/images/Loi-bai-hat-Co-Em-–-Madihu-x-Low-G-780x470.jpg" alt="">
+                        <img class="img_pll_add" id="pll_img_edit" src="" alt="">
                         <div class="pll_info">
                             <p class="info_name_pll" id="pll_name_edit"></p>
                             <p class="info_sript_pll" id="pll_script_edit"></p>
@@ -245,7 +228,9 @@
                     <button class="new_pll_btn" onclick="create_playlist()">New</button>
                 </div>
                 <div class="pll_display" id="pll_display">
-
+                   	<div class="wrap_loader" id="loader_med_playlist">
+                           <div class="custom-loader" ></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -265,7 +250,9 @@
                         <button class="search_song_btn" onclick="search('','artist', 'search_artist', '')">Find</button>
                     </div>
                     <div class="wrap_list_song" id="wrap_list_artist">
-                        
+                        <div class="wrap_loader" id="loader_artist">
+                            <div class="custom-loader" ></div>
+                        </div>
                     </div>
                 </div>
                 <div class="wrap_song_right" >
@@ -327,7 +314,9 @@
                         <button class="search_song_btn" onclick="search('','cate', 'search_cate', '')">Find</button>
                     </div>
                     <div class="wrap_list_song" id="wrap_list_cate">
-
+                    	<div class="wrap_loader" id="loader_cate">
+                            <div class="custom-loader" ></div>
+                        </div>
                     </div>
                 </div>
                 <div class="wrap_song_right">
@@ -358,7 +347,9 @@
                     <p class="count_user">User: </p> <p class="wrap_number_count" id="number_count">1</p>
                 </div>
                 <div class="wrap_user" id = "wrap_user">
-                   
+                   <div class="wrap_loader" id="loader_user">
+                       <div class="custom-loader" ></div>
+                   </div>
                 </div>
             </div>
         </div>
@@ -423,6 +414,9 @@
                 		},
                 		success: function(response){
                 			console.log(response);
+                			var loader_media = document.getElementById("loader_media");
+    		  	        	var timeout = setTimeout(()=>{
+    		  	        		loader_media.style.display = "none";
                 			if(response.error === "false"){
                 				var count_med = 0;
         		  	        	for (var key in response.media) {
@@ -446,28 +440,31 @@
         		  	        	var CateList = document.getElementById("wrap_cate_med");
         		  	        	var ArtList = document.getElementById("wrap_artist_med");
         		  	        	
-        		  	        	MedList.innerHTML = "";
-        		  	        	if(count_med > 0){
-        		  	        		for(var i = 0 ; i < count_med; i++){
-        		  	        			MedList.innerHTML = MedList.innerHTML + "<div class='song' id='"+response.media[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' id='idMed_img_"+response.media[i].id+"' src='"+response.media[i].img+"' alt=''></div><div class='wrap_song_info'><input type='text' class='song_name' value='"+response.media[i].name+"' id='idMed_name_"+response.media[i].id+"'><p class='song_per'>"+response.media[i].per+"</p><p class='song_per'>"+response.media[i].types+", "+response.media[i].cate+", "+response.media[i].year+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick='deleteMedia(\""+response.media[i].id+"\")'><img class='img_beahave_song' src='images/delete.png' alt=''></button><input type='file' class='ipn_file' style='display:none;' id='inp_img_med_"+response.media[i].id+"' onchange=\"showPreview(this.id,'idMed_img_"+response.media[i].id+"', '"+response.media[i].img+"')\"><label class='btn_beahave_song' style='display:flex; justify-content: center; align-item: center;' for='inp_img_med_"+response.media[i].id+"'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \"Save('"+response.media[i].id+"', 'inp_img_med_"+response.media[i].id+"', 'idMed_name_"+response.media[i].id+"', '', 'idMed_img_"+response.media[i].id+"', 'media', '', '"+response.media[i].types+"')\"><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \"reloadInfo('media', 'idMed_img_"+response.media[i].id+"', 'idMed_name_"+response.media[i].id+"', '', '"+response.media[i].img+"', '"+response.media[i].name+"', '', 'inp_img_med_"+response.media[i].id+"' )\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
-        		  	        		}
-        		  	        	}
-        		  	        	CateList.innerHTML = "";
-        		  	        	if(count_cate > 0){
-        		  	        		for(var i = 0 ; i < count_cate; i++){
-        		  	        			CateList.innerHTML = CateList.innerHTML + "<div class='wrap_cate'><input type='radio' name='cate_new_med' id='cate_new_med' value='"+response.cate[i].name+"'><p class='cate_name'>"+response.cate[i].name+"</p></div>";
-        		  	        		}
-        		  	        	}
-        		  	        	ArtList.innerHTML = "";
-        		  	        	if(count_artist > 0){
-        		  	        		for(var i = 0 ; i < count_cate; i++){
-        		  	        			ArtList.innerHTML = ArtList.innerHTML + "<div class='wrap_art_inp'><input type='radio' name='Name_artist_med' id='"+response.artist[i].id+"' value='"+response.artist[i].name+"'><p class='inp_name_art'>"+response.artist[i].name+"</p></div>";
-        		  	        		}
-        		  	        	}
+        		  	        		MedList.innerHTML = "";
+            		  	        	if(count_med > 0){
+            		  	        		for(var i = 0 ; i < count_med; i++){
+            		  	        			MedList.innerHTML = MedList.innerHTML + "<div class='song' id='"+response.media[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' id='idMed_img_"+response.media[i].id+"' src='"+response.media[i].img+"' alt=''></div><div class='wrap_song_info'><input type='text' class='song_name' value='"+response.media[i].name+"' id='idMed_name_"+response.media[i].id+"'><p class='song_per'>"+response.media[i].per+"</p><p class='song_per'>"+response.media[i].types+", "+response.media[i].cate+", "+response.media[i].year+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick='deleteMedia(\""+response.media[i].id+"\")'><img class='img_beahave_song' src='images/delete.png' alt=''></button><input type='file' class='ipn_file' style='display:none;' id='inp_img_med_"+response.media[i].id+"' onchange=\"showPreview(this.id,'idMed_img_"+response.media[i].id+"', '"+response.media[i].img+"')\"><label class='btn_beahave_song' style='display:flex; justify-content: center; align-item: center;' for='inp_img_med_"+response.media[i].id+"'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \"Save('"+response.media[i].id+"', 'inp_img_med_"+response.media[i].id+"', 'idMed_name_"+response.media[i].id+"', '', 'idMed_img_"+response.media[i].id+"', 'media', '', '"+response.media[i].types+"')\"><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \"reloadInfo('media', 'idMed_img_"+response.media[i].id+"', 'idMed_name_"+response.media[i].id+"', '', '"+response.media[i].img+"', '"+response.media[i].name+"', '', 'inp_img_med_"+response.media[i].id+"' )\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
+            		  	        		}
+            		  	        	}
+            		  	        	CateList.innerHTML = "";
+            		  	        	if(count_cate > 0){
+            		  	        		for(var i = 0 ; i < count_cate; i++){
+            		  	        			CateList.innerHTML = CateList.innerHTML + "<div class='wrap_cate'><input type='radio' name='cate_new_med' id='cate_new_med' value='"+response.cate[i].name+"'><p class='cate_name'>"+response.cate[i].name+"</p></div>";
+            		  	        		}
+            		  	        	}
+            		  	        	ArtList.innerHTML = "";
+            		  	        	if(count_artist > 0){
+            		  	        		for(var i = 0 ; i < count_cate; i++){
+            		  	        			ArtList.innerHTML = ArtList.innerHTML + "<div class='wrap_art_inp'><input type='radio' name='Name_artist_med' id='"+response.artist[i].id+"' value='"+response.artist[i].name+"'><p class='inp_name_art'>"+response.artist[i].name+"</p></div>";
+            		  	        		}
+            		  	        	}
                 			}else if(response.error === "true"){
                             	document.getElementById("wrap_out_mes_error").style.display = "flex";
 
                 			}
+        		  	       } , 1000);
+        		  	        	
+                			
                 		},
                 		error: function(response){
                         	document.getElementById("wrap_out_mes_error").style.display = "flex";
@@ -495,20 +492,23 @@
                 			Admin_request: "get_playlist"
 						},
 						success : function(response){
-							console.log(response);
 							var wrap_pll = document.getElementById("pll_display");
-							wrap_pll.innerHTML = "";
-                			if(response.error === "false"){
-                				if(response.playlist.length > 0){
-                					for(var i = 0; i < response.playlist.length; i++){
-                						wrap_pll.innerHTML = wrap_pll.innerHTML + "<div class='pll' id='"+response.playlist[i].id+"'><img class='img_pll' id = 'idPll_img_"+response.playlist[i].id+"' src='"+response.playlist[i].img+"' alt=''><input type='text' class='name_pll' id='idPll_name_"+response.playlist[i].id+"' value='"+response.playlist[i].name+"'><input type='text' class='script_pll' id='idPll_scr_"+response.playlist[i].id+"' value='"+response.playlist[i].script+"'><div class='wrap_DEL_RE_UP'><button class='btn_beahave_song' onclick=\"Edit_playlist('"+response.playlist[i].id+"', '"+response.playlist[i].name+"', '"+response.playlist[i].script+"', '"+response.playlist[i].img+"', '"+response.playlist[i].type+"')\"><img class='img_beahave_song' src='images/edit_pll.png' alt=''></button><button class='btn_beahave_song' onclick='deletePlaylist(\""+response.playlist[i].id+"\")'><img class='img_beahave_song' src='images/delete.png' alt=''></button><input type='file' class='ipn_file' style='display:none;' id='inp_img_pll_"+response.playlist[i].id+"' onchange=\"showPreview(this.id,'idPll_img_"+response.playlist[i].id+"', '"+response.playlist[i].img+"')\"><label class='btn_beahave_song' for='inp_img_pll_"+response.playlist[i].id+"'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \" Save( '"+response.playlist[i].id+"', 'inp_img_pll_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', 'idPll_img_"+response.playlist[i].id+"', 'playlist', '', '')\" ><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \" reloadInfo('playlist', 'idPll_img_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', '"+response.playlist[i].img+"', '"+response.playlist[i].name+"', '"+response.playlist[i].script+"', 'inp_img_pll_"+response.playlist[i].id+"')\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
-                					}
-                				}else{
-                					
-                				}
-							}else if(response.error === "true"){
-			                	document.getElementById("wrap_out_mes_error").style.display = "flex";
-	            			}
+							var loeader_pll = document.getElementById("loader_med_playlist");
+							var timeout = setTimeout(()=> {
+								loeader_pll.style.display = "none";
+								wrap_pll.innerHTML = "";
+	                			if(response.error === "false"){
+	                				if(response.playlist.length > 0){
+	                					for(var i = 0; i < response.playlist.length; i++){
+	                						wrap_pll.innerHTML = wrap_pll.innerHTML + "<div class='pll' id='"+response.playlist[i].id+"'><img class='img_pll' id = 'idPll_img_"+response.playlist[i].id+"' src='"+response.playlist[i].img+"' alt=''><input type='text' class='name_pll' id='idPll_name_"+response.playlist[i].id+"' value='"+response.playlist[i].name+"'><input type='text' class='script_pll' id='idPll_scr_"+response.playlist[i].id+"' value='"+response.playlist[i].script+"'><div class='wrap_DEL_RE_UP'><button class='btn_beahave_song' onclick=\"Edit_playlist('"+response.playlist[i].id+"', '"+response.playlist[i].name+"', '"+response.playlist[i].script+"', '"+response.playlist[i].img+"', '"+response.playlist[i].type+"')\"><img class='img_beahave_song' src='images/edit_pll.png' alt=''></button><button class='btn_beahave_song' onclick='deletePlaylist(\""+response.playlist[i].id+"\")'><img class='img_beahave_song' src='images/delete.png' alt=''></button><input type='file' class='ipn_file' style='display:none;' id='inp_img_pll_"+response.playlist[i].id+"' onchange=\"showPreview(this.id,'idPll_img_"+response.playlist[i].id+"', '"+response.playlist[i].img+"')\"><label class='btn_beahave_song' for='inp_img_pll_"+response.playlist[i].id+"'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \" Save( '"+response.playlist[i].id+"', 'inp_img_pll_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', 'idPll_img_"+response.playlist[i].id+"', 'playlist', '', '')\" ><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \" reloadInfo('playlist', 'idPll_img_"+response.playlist[i].id+"', 'idPll_name_"+response.playlist[i].id+"', 'idPll_scr_"+response.playlist[i].id+"', '"+response.playlist[i].img+"', '"+response.playlist[i].name+"', '"+response.playlist[i].script+"', 'inp_img_pll_"+response.playlist[i].id+"')\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
+	                					}
+	                				}else{
+	                					
+	                				}
+								}else if(response.error === "true"){
+				                	document.getElementById("wrap_out_mes_error").style.display = "flex";
+		            			}
+							}, 2000);
 						},
 
 						error: function(response){
@@ -536,18 +536,23 @@
 						success : function(response){
 							console.log(response);
 							var wrap_artist = document.getElementById("wrap_list_artist");
-							wrap_artist.innerHTML = "";
-                			if(response.error === "false"){
-                				if(response.artist.length > 0){
-                					for(var i = 0; i < response.artist.length; i++){
-                						wrap_artist.innerHTML = wrap_artist.innerHTML + "<div class='song' id='"+response.artist[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' id = 'idArt_img_"+response.artist[i].id+"' src='"+response.artist[i].img+"' alt=''></div><div class='wrap_song_info'><input type='text' class='song_name' value='"+response.artist[i].name+"' id='idArt_name_"+response.artist[i].id+"'><p class='song_per'>"+response.artist[i].per_type+"</p></div></div><div class='wrap_beahave'><input type='file' class='ipn_file' style='display:none;' id='inp_img_art_"+response.artist[i].id+"' onchange=\"showPreview(this.id,'idArt_img_"+response.artist[i].id+"', '"+response.artist[i].img+"')\"><label class='btn_beahave_song' for='inp_img_art_"+response.artist[i].id+"' style='display:flex; justify-content: center; align-item: center;'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \"Save('"+response.artist[i].id+"', 'inp_img_art_"+response.artist[i].id+"', 'idArt_name_"+response.artist[i].id+"', '', 'idArt_img_"+response.artist[i].id+"', 'artist', '"+response.artist[i].name+"', '')\"><img class='img_beahave_song' src='images/upload.png'  alt=''></button><button class='btn_beahave_song' onclick = \"reloadInfo('artist', 'idArt_img_"+response.artist[i].id+"', 'idArt_name_"+response.artist[i].id+"', '', '"+response.artist[i].img+"', '"+response.artist[i].name+"', '', 'inp_img_art_"+response.artist[i].id+"')\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
-                					}
-                				}else{
-                					wrap_artist.innerHTML = "";
-                				}
-							}else if(response.error === "true"){
-			                	document.getElementById("wrap_out_mes_error").style.display = "flex";
-	            			}
+							var loader_artist = document.getElementById("loader_artist");
+							var timeout = setTimeout(()=> {
+								loader_artist.style.display = "none";
+								wrap_artist.innerHTML = "";
+	                			if(response.error === "false"){
+	                				if(response.artist.length > 0){
+	                					for(var i = 0; i < response.artist.length; i++){
+	                						wrap_artist.innerHTML = wrap_artist.innerHTML + "<div class='song' id='"+response.artist[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' id = 'idArt_img_"+response.artist[i].id+"' src='"+response.artist[i].img+"' alt=''></div><div class='wrap_song_info'><input type='text' class='song_name' value='"+response.artist[i].name+"' id='idArt_name_"+response.artist[i].id+"'><p class='song_per'>"+response.artist[i].per_type+"</p></div></div><div class='wrap_beahave'><input type='file' class='ipn_file' style='display:none;' id='inp_img_art_"+response.artist[i].id+"' onchange=\"showPreview(this.id,'idArt_img_"+response.artist[i].id+"', '"+response.artist[i].img+"')\"><label class='btn_beahave_song' for='inp_img_art_"+response.artist[i].id+"' style='display:flex; justify-content: center; align-item: center;'><img class='img_beahave_song' src='images/image.png' alt=''></label><button class='btn_beahave_song' onclick = \"Save('"+response.artist[i].id+"', 'inp_img_art_"+response.artist[i].id+"', 'idArt_name_"+response.artist[i].id+"', '', 'idArt_img_"+response.artist[i].id+"', 'artist', '"+response.artist[i].name+"', '')\"><img class='img_beahave_song' src='images/upload.png'  alt=''></button><button class='btn_beahave_song' onclick = \"reloadInfo('artist', 'idArt_img_"+response.artist[i].id+"', 'idArt_name_"+response.artist[i].id+"', '', '"+response.artist[i].img+"', '"+response.artist[i].name+"', '', 'inp_img_art_"+response.artist[i].id+"')\"><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div>";
+	                					}
+	                				}else{
+	                					wrap_artist.innerHTML = "";
+	                				}
+								}else if(response.error === "true"){
+				                	document.getElementById("wrap_out_mes_error").style.display = "flex";
+		            			}
+							}, 1000); 
+							
 						},
 
 						error: function(response){
@@ -575,18 +580,23 @@
 						success : function(response){
 							console.log(response);
 							var wrap_cate = document.getElementById("wrap_list_cate");
-							wrap_cate.innerHTML = "";
-                			if(response.error === "false"){
-                				if(response.cate.length > 0){
-                					for(var i = 0; i < response.cate.length; i++){
-                						wrap_cate.innerHTML = wrap_cate.innerHTML + " <div class='song'><div class='song_info'><div class='wrap_song_info'><input type='text' class='song_name' value='"+response.cate[i].name+"' id='idCate_name_"+response.cate[i].id+"'></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick = \"Save('"+response.cate[i].id+"', '', 'idCate_name_"+response.cate[i].id+"', '', '', 'cate', '"+response.cate[i].name+"', '')\"><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \"reloadInfo('cate', '', 'idCate_name_"+response.cate[i].id+"', '', '', '"+response.cate[i].name+"', '', '')\" ><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div> ";
-                					}
-                				}else{
-                					wrap_cate.innerHTML = "";
-                				}
-							}else if(response.error === "true"){
-			                	document.getElementById("wrap_out_mes_error").style.display = "flex";
-	            			}
+							var loeader_cate = document.getElementById("loader_cate");
+							var timeout = setTimeout(()=>{
+								wrap_cate.innerHTML = "";
+								loeader_cate.style.display = "none";
+	                			if(response.error === "false"){
+	                				if(response.cate.length > 0){
+	                					for(var i = 0; i < response.cate.length; i++){
+	                						wrap_cate.innerHTML = wrap_cate.innerHTML + " <div class='song'><div class='song_info'><div class='wrap_song_info'><input type='text' class='song_name' value='"+response.cate[i].name+"' id='idCate_name_"+response.cate[i].id+"'></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick = \"Save('"+response.cate[i].id+"', '', 'idCate_name_"+response.cate[i].id+"', '', '', 'cate', '"+response.cate[i].name+"', '')\"><img class='img_beahave_song' src='images/upload.png' alt=''></button><button class='btn_beahave_song' onclick = \"reloadInfo('cate', '', 'idCate_name_"+response.cate[i].id+"', '', '', '"+response.cate[i].name+"', '', '')\" ><img class='img_beahave_song' src='images/reload.png' alt=''></button></div></div> ";
+	                					}
+	                				}else{
+	                					wrap_cate.innerHTML = "";
+	                				}
+								}else if(response.error === "true"){
+				                	document.getElementById("wrap_out_mes_error").style.display = "flex";
+		            			}
+							}, 1000);
+							
 						},
 
 						error: function(response){
@@ -614,20 +624,25 @@
 							console.log(response);
 							var wrap_user = document.getElementById("wrap_user");
 							var number_count = document.getElementById("number_count");
-							wrap_user.innerHTML = "";
-                			if(response.error === "false"){
-                				if(response.user.length > 0){
-                					number_count.innerText = response.user.length;
-                					for(var i = 0; i < response.user.length; i++){
-                						wrap_user.innerHTML = wrap_user.innerHTML + " <div id='"+response.user[i].id+"' class='user'><div class='wrap_user_info'><div class='wrap_user_id'><p class='user_id'>"+response.user[i].id+"</p></div><div class='wrap_user_img'><img class='user_img' src='"+response.user[i].img+"' alt=''></div><div class='wrap_name_mail'><p class='name_user'>"+response.user[i].name+"</p><p class='mail_user'>"+response.user[i].email+"</p> </div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick='deleteUser(\""+response.user[i].id+"\")'><img class='img_beahave_song' src='images/delete.png' alt=''></button></div></div>";
-                					}
-                				}else{
-                					number_count.innerText = response.user.length;
-                					wrap_user.innerHTML = "";
-                				}
-							}else if(response.error === "true"){
-			                	document.getElementById("wrap_out_mes_error").style.display = "flex";
-	            			}
+							var loeader_user = document.getElementById("loader_user");
+							var Timeout = setTimeout(()=> {
+								loeader_user.style.display = "none";
+								wrap_user.innerHTML = "";
+	                			if(response.error === "false"){
+	                				if(response.user.length > 0){
+	                					number_count.innerText = response.user.length;
+	                					for(var i = 0; i < response.user.length; i++){
+	                						wrap_user.innerHTML = wrap_user.innerHTML + " <div id='"+response.user[i].id+"' class='user'><div class='wrap_user_info'><div class='wrap_user_id'><p class='user_id'>"+response.user[i].id+"</p></div><div class='wrap_user_img'><img class='user_img' src='"+response.user[i].img+"' alt=''></div><div class='wrap_name_mail'><p class='name_user'>"+response.user[i].name+"</p><p class='mail_user'>"+response.user[i].email+"</p> </div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick='deleteUser(\""+response.user[i].id+"\")'><img class='img_beahave_song' src='images/delete.png' alt=''></button></div></div>";
+	                					}
+	                				}else{
+	                					number_count.innerText = response.user.length;
+	                					wrap_user.innerHTML = "";
+	                				}
+								}else if(response.error === "true"){
+				                	document.getElementById("wrap_out_mes_error").style.display = "flex";
+		            			}
+							}, 1000);
+							
 						},
 
 						error: function(response){
@@ -878,37 +893,37 @@
         			id : id_pll
         		},
         		success: function(response){
-        			var img_pll = document.getElementById("pll_img_edit");
-        			var name_pll = document.getElementById("pll_name_edit");
-        			var script_pll = document.getElementById("pll_script_edit");
-        			var pll_type_edit = document.getElementById("pll_type_edit");
-        			img_pll.src = img;
-        			name_pll.innerText = name;
-        			script_pll.innerText = script;
-        			pll_type_edit.innerText = "Type: "+type;
-        			pll_display
-        			document.getElementById("wrap_pll_display").style.display = "none";
-        			document.getElementById("pll_edit").style.display = "flex";
-        			var wrap_edit_med_pll = document.getElementById("wrap_pll_med_edit");
-        			if(response.song.length > 0){
-        				wrap_edit_med_pll.innerHTML = "";
-        				for(var i = 0; i < response.song.length; i++){
-        					wrap_edit_med_pll.innerHTML = wrap_edit_med_pll.innerHTML + "<div class='song' id='id_med_pll_edit_"+response.song[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+response.song[i].img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+response.song[i].name+"</p><p class='song_per' >"+response.song[i].per+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick=\"remove_from_pll('"+id_pll+"','"+response.song[i].id+"', '"+response.song[i].name+"', '"+response.song[i].img+"', '"+response.song[i].per+"')\"><img class='img_beahave_song' src='images/remove.png' alt=''></button></div></div>";
-        				}
-        			}else{
-        				wrap_edit_med_pll.innerHTML = "";
-        			}
-        			var wrap_med_search_pll = document.getElementById("wrap_list_song_playlist");
-        			if(response.med_search.length > 0){
-        				wrap_med_search_pll.innerHTML = "";
-        				for(var i = 0; i < response.med_search.length; i++){
-        					wrap_med_search_pll.innerHTML = wrap_med_search_pll.innerHTML + "<div class='song' id='id_med_pll_search_"+response.med_search[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+response.med_search[i].img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+response.med_search[i].name+"</p><p class='song_per' >"+response.med_search[i].per+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick=\"add_to_pll('"+id_pll+"','"+response.med_search[i].id+"', '"+response.med_search[i].name+"', '"+response.med_search[i].img+"', '"+response.med_search[i].per+"')\"><img class='img_beahave_song' src='images/plus.png' alt=''></button></div></div>";
-        				}
-        			}else{
-        				wrap_med_search_pll.innerHTML = "";
-        			}
-        			var wrap_search = document.getElementById("wrap_search_input");
-        			wrap_search.innerHTML = " <input type='text' class='search_song' id='search_med_pll_edit' placeholder='Search here!'><button class='search_song_btn' onclick=\"search('"+id_pll+"','playlist_edit', 'search_med_pll_edit', '"+type+"')\">Find</button>"
+       				var img_pll = document.getElementById("pll_img_edit");
+           			var name_pll = document.getElementById("pll_name_edit");
+           			var script_pll = document.getElementById("pll_script_edit");
+           			var pll_type_edit = document.getElementById("pll_type_edit");
+           			img_pll.src = img;
+           			name_pll.innerText = name;
+           			script_pll.innerText = script;
+           			pll_type_edit.innerText = "Type: "+type;
+           			document.getElementById("wrap_pll_display").style.display = "none";
+           			document.getElementById("pll_edit").style.display = "flex";
+           			var wrap_edit_med_pll = document.getElementById("wrap_pll_med_edit");
+           			var wrap_search = document.getElementById("wrap_search_input");
+           			wrap_search.innerHTML = " <input type='text' class='search_song' id='search_med_pll_edit' placeholder='Search here!'><button class='search_song_btn' onclick=\"search('"+id_pll+"','playlist_edit', 'search_med_pll_edit', '"+type+"')\">Find</button>"
+           			if(response.song.length > 0){
+           				wrap_edit_med_pll.innerHTML = "";
+           				for(var i = 0; i < response.song.length; i++){
+           					wrap_edit_med_pll.innerHTML = wrap_edit_med_pll.innerHTML + "<div class='song' id='id_med_pll_edit_"+response.song[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+response.song[i].img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+response.song[i].name+"</p><p class='song_per' >"+response.song[i].per+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick=\"remove_from_pll('"+id_pll+"','"+response.song[i].id+"', '"+response.song[i].name+"', '"+response.song[i].img+"', '"+response.song[i].per+"')\"><img class='img_beahave_song' src='images/remove.png' alt=''></button></div></div>";
+           				}
+           			}else{
+           				wrap_edit_med_pll.innerHTML = "";
+           			}
+           			var wrap_med_search_pll = document.getElementById("wrap_list_song_playlist");
+           			if(response.med_search.length > 0){
+           				wrap_med_search_pll.innerHTML = "";
+           				for(var i = 0; i < response.med_search.length; i++){
+           					wrap_med_search_pll.innerHTML = wrap_med_search_pll.innerHTML + "<div class='song' id='id_med_pll_search_"+response.med_search[i].id+"'><div class='song_info'><div class='wrap_song_img'><img class='song_img' src="+response.med_search[i].img+" alt=''></div><div class='wrap_song_info' ><p class='song_name'>"+response.med_search[i].name+"</p><p class='song_per' >"+response.med_search[i].per+"</p></div></div><div class='wrap_beahave'><button class='btn_beahave_song' onclick=\"add_to_pll('"+id_pll+"','"+response.med_search[i].id+"', '"+response.med_search[i].name+"', '"+response.med_search[i].img+"', '"+response.med_search[i].per+"')\"><img class='img_beahave_song' src='images/plus.png' alt=''></button></div></div>";
+           				}
+           			}else{
+           				wrap_med_search_pll.innerHTML = "";
+           			}
+           			
         		},
         		error: function(response){
                 	document.getElementById("wrap_out_mes_error").style.display = "flex";
