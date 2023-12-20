@@ -28,10 +28,13 @@ insert into Performer(per_name, per_img, per_type) VALUES ("JVKE", "images/perfo
 ("Trung Quân Idol","images/performers/trung_quan_idol_profile.jpg","Singer"),
 ("Madihu","images/performers/madihu_profile.jpg","Singer");
 
-insert into Per_med values (1,2),
-(2,3),
-(3,3),
-(4,1);
+
+insert into Per_med values 
+(6, 3),
+(10, 3),
+(9, 2),
+(15, 7);
+
 
 SELECT Per_med.per_id, media.id , media.img_path, media.media_name 
 FROM Per_med right join media on Per_med.media_id = media.id where Per_med.per_id = 1 ;
@@ -131,24 +134,26 @@ create table media_in_playlist(
 );
 
 
-INSERT INTO media_in_playlist VALUES(1,3),
-(2,3),
-(3,3),
-(1,4),
-(2,4),
-(3,4),
-(4,1),
-(4,2);
+INSERT INTO media_in_playlist VALUES(9,11),
+(6,11),
+(10,11),
+(9,12),
+(6,12),
+(7,12),
+(8,9),
+(8,10);
 
 
 DELETE FROM muslife.media_in_playlist;
 delete from Muslife.mediaFav;
+SELECT * FROM per_med;
 SELECT * FROM user;
 SELECT * FROM playlist;
 SELECT * FROM media_in_playlist;
 SELECT * FROM media;
 SELECT * FROM Performer;
 SELECT * FROM Muslife.mediaFav;
+SELECT * from Media where id Not in (6,8,9,10) AND types = "song";
 
 SELECT *
 FROM media_in_playlist
@@ -159,6 +164,7 @@ Select * from FavPlaylist;
 SELECT playlist.playlist_id, playlist_img_path,playlist_name,playlist_script,playlist_type
 from playlist right join FavPlaylist on FavPlaylist.playlist_id = playlist.playlist_id
 where user_id = 33;
+DELETE from performer where per_name = 'Wren Evans';
 
 Insert INTO mediaFav VALUES(4, 33);
 SELECT * FROM media WHERE types = 'song' AND media_song_categories = 'V_POP';
@@ -166,3 +172,8 @@ SELECT media_id, img_path, media_name, performer,media_song_categories,year, typ
 SELECT * FROM playlist where playlist_type = 'song' and playlist_name like '%playlist%';
 SET FOREIGN_KEY_CHECKS=0;
 DELETE FROM user where user_id = 35;
+UPDATE Performer set per_name = 'quan' where per_id = '2';
+select id from media order by id DESC limit 1 ;
+SELECT media.id, media.media_name from media_in_playlist right join media on media_in_playlist.media_id = media.id where media_in_playlist.playlist_id = 12;
+SELECT * FROM Media where media_name LIKE '%co%'  order by id DESC;
+SELECT media.id, media.media_name, media.img_path, media.performer, media.media_song_categories, media.types FROM media where id NOT IN (10) AND types = 'song' AND media.media_name LIKE '"+search+"'

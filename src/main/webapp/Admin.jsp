@@ -115,9 +115,6 @@
 
                             <div class="wrap_file_inp">
                                 <p class="head_file">Artist</p>
-                                <div class="preview_art">
-                                    <p id="text_art_pre" class="text_art_pre"></p>
-                                </div>
                                 <div class="wrap_artist" id="wrap_artist_med">
                                     
                                 </div>
@@ -416,7 +413,11 @@
                 			console.log(response);
                 			var loader_media = document.getElementById("loader_media");
     		  	        	var timeout = setTimeout(()=>{
-    		  	        		loader_media.style.display = "none";
+    		  	        		try{
+    		  	        			loader_media.style.display = "none";
+    		  	        		}catch(err){
+    		  	        			
+    		  	        		}
                 			if(response.error === "false"){
                 				var count_med = 0;
         		  	        	for (var key in response.media) {
@@ -495,7 +496,12 @@
 							var wrap_pll = document.getElementById("pll_display");
 							var loeader_pll = document.getElementById("loader_med_playlist");
 							var timeout = setTimeout(()=> {
-								loeader_pll.style.display = "none";
+								try{
+									loeader_pll.style.display = "none";
+								}catch(err){
+									
+								}
+								
 								wrap_pll.innerHTML = "";
 	                			if(response.error === "false"){
 	                				if(response.playlist.length > 0){
@@ -538,7 +544,11 @@
 							var wrap_artist = document.getElementById("wrap_list_artist");
 							var loader_artist = document.getElementById("loader_artist");
 							var timeout = setTimeout(()=> {
-								loader_artist.style.display = "none";
+								try{
+									loader_artist.style.display = "none";
+								}catch(err){
+									
+								}
 								wrap_artist.innerHTML = "";
 	                			if(response.error === "false"){
 	                				if(response.artist.length > 0){
@@ -583,7 +593,11 @@
 							var loeader_cate = document.getElementById("loader_cate");
 							var timeout = setTimeout(()=>{
 								wrap_cate.innerHTML = "";
-								loeader_cate.style.display = "none";
+								try{
+									loeader_cate.style.display = "none";
+								}catch(err){
+									
+								}
 	                			if(response.error === "false"){
 	                				if(response.cate.length > 0){
 	                					for(var i = 0; i < response.cate.length; i++){
@@ -626,7 +640,11 @@
 							var number_count = document.getElementById("number_count");
 							var loeader_user = document.getElementById("loader_user");
 							var Timeout = setTimeout(()=> {
-								loeader_user.style.display = "none";
+								try{
+									loeader_user.style.display = "none";
+								}catch(err){
+									
+								}
 								wrap_user.innerHTML = "";
 	                			if(response.error === "false"){
 	                				if(response.user.length > 0){
