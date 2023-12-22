@@ -970,7 +970,7 @@ request.getSession().setAttribute("CP",null);
 	  	        	document.getElementById("Home").style.display="none";
 	  	        	document.getElementById("account").style.display="none";
 	  	        	document.getElementById("wrap_change_image").style.display="none";
-	  		  		document.getElementById("pl_inside").innerHTML = "<div class='wrap_pl_inf_head'><div class='pl_img_head'><img class='img_head' src='"+img+"'><div class='pl_inf_head'><p class='pl_name_head'>"+n+"</p><p class='pl_script_head'>"+s+"</p></div></div><div class='wrap_all_be_pll'><button class='play_pl_but'><img style='margin-left: 3px; margin-top:3px' width='23px' src='images/play-button-arrowhead.png' alt=''></button> "+like_but+" "+suf_but+"</div></div><div style='background-color: white; height:2px; margin:2%;'></div>";
+	  		  		document.getElementById("pl_inside").innerHTML = "<div class='wrap_pl_inf_head'><div class='pl_img_head'><img class='img_head' src='"+img+"'><div class='pl_inf_head'><p class='pl_name_head'>"+n+"</p><p class='pl_script_head'>"+s+"</p></div></div><div class='wrap_all_be_pll'> "+like_but+" "+suf_but+"</div></div><div style='background-color: white; height:2px; margin:2%;'></div>";
 	  		  		for(var i = 0; i < count; i++){
 	  		  			var c = i + 1;
 	  		  			if(response.song[i].like === "true"){

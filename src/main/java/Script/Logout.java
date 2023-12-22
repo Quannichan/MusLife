@@ -39,6 +39,7 @@ public class Logout extends HttpServlet {
 				request.getSession().setAttribute("Med_fav",null);
 				request.getSession().setAttribute("Pll_fav",null);
 				request.getSession().setAttribute("Pod_fav",null);
+				request.getSession().setAttribute("count", 0);
 				response.sendRedirect("Login.jsp");
 			}else {
 				response.sendRedirect("notfound.jsp");

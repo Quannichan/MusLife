@@ -42,7 +42,7 @@ request.getSession().setAttribute("CP",null);
                 <div class="option">
                     <ul class="op_list">
                         <li class="list"><img width="20px" style="margin-right: 20px;margin-bottom:-1px;" src="images/home.png"><a class="link" href="index.jsp">Home</a></li>
-                        <li class="list"><img width="20px" style="margin-right: 20px;margin-bottom:-1px;" src="images/search.png"><a class="link">Search</a></li>
+                        <li class="list"><img width="20px" style="margin-right: 20px;margin-bottom:-1px;" src="images/search.png"><a class="link" style="cursor:pointer;" onclick="window.location.href='Login.jsp'">Search</a></li>
                     </ul>
                 </div>
             </div>
@@ -155,14 +155,11 @@ request.getSession().setAttribute("CP",null);
                             		for(int i = 0; i < pll.size(); i++){
                             			if(pll.get(i).getPl_type().equals("song")){
                             			count+=1;%>
-                            			<div class="pl_list">
+                            			<div class="pl_list" onclick="window.location.href='Login.jsp'">
                                             <img class="img_pl" src="<%=pll.get(i).getPl_img_path()%>">
                                         <div class="info_pl_l">
                                             <h3 class="name_pl"><%=pll.get(i).getPl_name()%></h3>
                                             <p class="descript_pl"><%=pll.get(i).getPl_script()%></p>
-                                        </div>
-                                        <div class="wrap_play_pl_btn">
-                                            <button class="play_pl_btn"><img class="play_pl_img" src="images/play-button-arrowhead.png" alt=""></button>
                                         </div>
                                     </div>
                             			<%if(count == 4){
@@ -181,14 +178,11 @@ request.getSession().setAttribute("CP",null);
                             		for(int i = 0; i < pll.size();i++){
                             			if(pll.get(i).getPl_type().equals("podcast")){
                             			count1+=1;%>
-                            			<div class="pl_list">
+                            			<div class="pl_list" onclick="window.location.href='Login.jsp'">
                                             <img class="img_pl" src="<%=pll.get(i).getPl_img_path() %>">
                                         <div class="info_pl_l">
                                             <h3 class="name_pl"><%=pll.get(i).getPl_name() %></h3>
                                             <p class="descript_pl"><%=pll.get(i).getPl_script() %></p>
-                                        </div>
-                                        <div class="wrap_play_pl_btn">
-                                            <button class="play_pl_btn"><img class="play_pl_img" src="images/play-button-arrowhead.png" alt=""></button>
                                         </div>
                                     </div>
 	                            		<%	if(count1 ==4){
