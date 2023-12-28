@@ -213,12 +213,13 @@ public class update_add extends HttpServlet {
 											System.out.println(img_pathPod+"/"+filename);
 											if(!Files.exists(Path.of(img_pathPod))) {
 												Files.createDirectory(Path.of(img_pathPod));
+												
 												if(!Files.exists(Path.of(podcast_path))) {
 													Files.createDirectory(Path.of(podcast_path));
 													filePath.write(img_pathPod+"/"+filename);
 													filePath_med.write(podcast_path+"/"+pod_path);
 												} else {
-													filePath.write(img_pathSong+"/"+filename);
+													filePath.write(img_pathPod+"/"+filename);
 													filePath_med.write(podcast_path+"/"+pod_path);
 												}
 											}else {
@@ -231,7 +232,7 @@ public class update_add extends HttpServlet {
 												}
 												
 											}
-											stmt.execute("INSERT INTO media (img_path, media_name, performer, file_path, media_song_categories, year, types) VALUES('images/song/"+filename+"', '"+Name_med+"', '"+per+"', 'podcast/"+pod_path+"', '"+cate+"', '"+year+"', '"+type+"')");
+											stmt.execute("INSERT INTO media (img_path, media_name, performer, file_path, media_song_categories, year, types) VALUES('images/podcast/"+filename+"', '"+Name_med+"', '"+per+"', 'podcast/"+pod_path+"', '"+cate+"', '"+year+"', '"+type+"')");
 											ResultSet rs = stmt.executeQuery("select id from media order by id DESC limit 1 ;");
 											int id_med = 0;
 											while(rs.next()) {
